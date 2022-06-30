@@ -1,12 +1,13 @@
-import {Request, Response} from "express";
-
 const express = require('express');
 const { json } = require('body-parser');
+const { currentUserRouter } = require('./routes/current-user')
 
 const app = express();
 app.use(json());
 
-app.get('/api/users/currentuser', (req:Request, res:Response ) => {
+app.user(currentUserRouter);
+
+app.get('/api/users/currentuser', (req,res ) => {
     res.send('Hi there!');
 });
 
