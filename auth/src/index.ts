@@ -3,7 +3,6 @@ import 'express-async-errors';
 
 const { json } = require('body-parser');
 const mongoose = require('mongoose');
-// @TODO npm install mongoose @types/mongoose
 
 const { currentUserRouter } = require('./routes/current-user');
 const { signinRouter } = require('./routes/signin');
