@@ -5,7 +5,6 @@ export class DatabaseConnectionError extends Error {
     constructor() {
         super();
 
-        // Because we are extending built-in class
         Object.setPrototypeOf(this, DatabaseConnectionError.prototype);
     }
 
