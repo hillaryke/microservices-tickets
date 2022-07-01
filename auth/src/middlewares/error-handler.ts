@@ -1,18 +1,23 @@
-import {Response, Request, NextFunction} from "express";
-import {RequestValidationError} from "../errors/request-validation-error";
-import {DatabaseConnectionError} from "../errors/database-connection-error";
+import { Request, NextFunction } from "express";
+import { Response } from "express/ts4.0";
+import { RequestValidationError } from "../errors/request-validation-error";
+import { DatabaseConnectionError } from "../errors/database-connection-error";
 
-export const errorHandler = (err: Error, req: Request, res: Request, next: NextFunction) => {
+export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
     if (err instanceof RequestValidationError) {
-        console.log('Handler for Request validation error');
+        const formattedErrors = err.errors.map(error => {
+            return { message: error.msg, field: error.param };
+        });
+        res.status(400).send({ errors: formattedErrors });
     }
 
     if (err instanceof DatabaseConnectionError) {
-        console.log('handling database connection Error');
+        return res.status(500).send({ errors: [{ message: err.reason }] });
     }
 
-    // res.status(400).send({
-    //     message: err.message
-    // })
-}
+    return res.status(400).send({
+        errors: [{ message: 'Something went wrong' }]
+    });
+
+};
 

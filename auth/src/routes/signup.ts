@@ -23,8 +23,8 @@ router.post('/api/users/signup', [
     }
 
 
-    console.log('Creating a user ...');
-    throw new DatabaseConnectionError();
+    console.log('Creating a user');
+    // throw new DatabaseConnectionError();
 
     res.send({});
 });
