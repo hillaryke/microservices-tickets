@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 // An interface describing properties required to create a new User
 interface UserAttrs {
-    email: string
+    email: string;
     password: string;
 }
 
@@ -11,7 +11,7 @@ interface UserModel extends mongoose.Model<any> {
     build(attrs: UserAttrs): any;
 }
 
-const UserSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true
@@ -24,9 +24,9 @@ const UserSchema = new mongoose.Schema({
 
 userSchema.statics.build = (attrs: UserAttrs) => {
     return new User(attrs);
-}
+};
 
-const User = mongoose.model<any, UserModel>('User', UserSchema);
+const User = mongoose.model<any, UserModel>('User', userSchema);
 
 User.build({
     email: 'asasdfas@df.com',
