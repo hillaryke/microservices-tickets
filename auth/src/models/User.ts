@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { Password } from '../services/password';
 
 // An interface describing properties required to create a new User
 interface UserAttrs {
@@ -26,6 +27,18 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     }
+});
+
+// pre-save Hook(middleware func) executed once save method on user is called and
+// just before User is stored into database
+userSchema.pre('save', async function (done) {
+    // check if email only is changed to avoid rehashing same passwords
+    if (this.isModified('password')) {
+        const hashed = await Password.toHash(this.get('password'));
+        this.set('password', hashed);
+    }
+
+    done();
 });
 
 userSchema.statics.build = (attrs: UserAttrs) => {
