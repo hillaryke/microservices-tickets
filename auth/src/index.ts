@@ -19,7 +19,7 @@ app.use(json());
 app.use(cookieSession({
     signed: false,
     secure: true
-}))
+}));
 
 app.use(currentUserRouter);
 app.use(signupRouter);
