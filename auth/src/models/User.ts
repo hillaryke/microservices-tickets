@@ -29,4 +29,4 @@ User.build({
     password: 'adfadsf'
 });
 
-export { User,buildUser };
+export { User };
