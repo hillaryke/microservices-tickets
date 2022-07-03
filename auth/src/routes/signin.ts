@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { body, validationResult } from 'express-validator';
+import { body } from 'express-validator';
 
-import { RequestValidationError } from "../errors/request-validation-error";
+import { validateRequest } from "../middlewares/validate-request";
 
 const express = require('express');
 const router = express.Router();
@@ -16,13 +16,10 @@ router.post('/api/users/signin',
             .trim()
             .notEmpty()
             .withMessage('Field must not be empty!')
-],(req: Request, res: Response) => {
-    const errors = validationResult(req);
+    ], validateRequest,
+    (req: Request, res: Response) => {
 
-    if (!errors.isEmpty()) {
-        throw new RequestValidationError(errors.array());
-    }
 
-});
+    });
 
 export { router as signinRouter };
