@@ -17,3 +17,14 @@ spec:
                 name: auth-svc
                 port:
                   number: 3000
+
+    - host: ticketing.db
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: mongo-express-svc
+                port:
+                  number: 8081
