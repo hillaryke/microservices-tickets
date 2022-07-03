@@ -1,9 +1,14 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 // An interface describing properties required to create a new User
 interface UserAttrs {
     email: string
     password: string;
+}
+
+// An interface describing the properties a User Model has
+interface UserModel extends mongoose.Model<any> {
+    build(attrs: UserAttrs): any;
 }
 
 const UserSchema = new mongoose.Schema({
@@ -17,10 +22,11 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
-const User = mongoose.model('User', UserSchema);
+const User = mongoose.model<any, UserModel>('User', UserSchema);
 
-const buildUser = (attrs: UserAttrs) => {
-    return new User(attrs);
-}
+User.build({
+    email: 'asasdfas@df.com',
+    password: 'adfadsf'
+});
 
 export { User,buildUser };
