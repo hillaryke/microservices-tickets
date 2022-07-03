@@ -1,6 +1,7 @@
 import {Request, Response} from "express";
 import { User } from '../models/User';
 import {RequestValidationError} from "../errors/request-validation-error";
+import {BadRequestError} from "../errors/bad-request-error";
 
 const express = require('express');
 const router = express.Router();
@@ -28,7 +29,7 @@ router.post('/api/users/signup', [
 
     if (existingUser) {
         console.log('Email in use');
-        return res.send({ })
+        throw new BadRequestError('Email already in use!!');
     }
 
     const user = User.build({ email, password})
