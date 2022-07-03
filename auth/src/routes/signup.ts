@@ -11,7 +11,6 @@ import { BadRequestError } from "../errors/bad-request-error";
 const express = require('express');
 const router = express.Router();
 
-// Get current user
 router.post('/api/users/signup', [
     body('email')
         .isEmail()
