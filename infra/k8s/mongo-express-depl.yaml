@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-express-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-express
+  template:
+    metadata:
+      labels:
+        app: mongo-express
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: mongo-express
+          image: mongo-express:0.54.0
+          ports:
+            - containerPort: 8081
+          env:
+            - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+              value: ${MONGO_ROOT_USER}
+            - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+              value: ${MONGO_ROOT_PASS}
+            - name: ME_CONFIG_MONGODB_AUTH_DATABASE
+              value: admin
+            - name: ME_CONFIG_MONGODB_SERVER
+              value: auth-mongo-svc
+            - name: ME_CONFIG_MONGODB_ENABLE_ADMIN
+              value: "true"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-express-svc
+spec:
+#  type: NodePort
+  selector:
+    app: mongo-express
+  ports:
+    - name: mongo-express
+      protocol: TCP
+      port: 8081
+      targetPort: 8081
+#      nodePort: 30000
