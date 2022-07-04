@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: hilare/micro_ticket-client
+          image: hilare/client
           ports:
             - containerPort: 3000
 ---
