@@ -1,3 +1,3 @@
 export default () => {
-    return <h1>This is banaNa page</h1>
+    return <h1>Banana V1</h1>
 }
