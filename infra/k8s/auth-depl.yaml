@@ -18,6 +18,8 @@ spec:
           ports:
             - containerPort: 3000
           env:
+            - name: MONGO_URI
+              value: 'mongodb://auth-mongo-svc:27017/auth'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:

@@ -26,7 +26,7 @@ spec:
                 port:
                   number: 3000
 
-    - host: ticketing.db
+    - host: auth.db
       http:
         paths:
           - path: /
