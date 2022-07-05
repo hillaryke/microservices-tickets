@@ -4,6 +4,7 @@ import axios from 'axios';
 export default () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
+   const [errors, setErrors] = useState([]);
 
    const onFormSubmit = async (event) => {
       event.preventDefault();
@@ -16,7 +17,7 @@ export default () => {
          setEmail('');
          setPassword('');
       } catch (err) {
-         console.log(err.response.data);
+         setErrors(err.response.data.errors);
       }
    };
 
@@ -33,7 +34,7 @@ export default () => {
                          <div className="form-floating mb-3">
                             <input
                                 value={email}
-                                onChange={(event) => setEmail(event.target.value)}
+                                onChange={e => setEmail(e.target.value)}
                                 type="email"
                                 className="form-control"
                                 id="inputEmail"
@@ -45,7 +46,7 @@ export default () => {
                          <div className="form-floating mb-3">
                             <input
                                 value={password}
-                                onChange={(event) => setPassword(event.target.value)}
+                                onChange={e => setPassword(e.target.value)}
                                 type="password"
                                 className="form-control"
                                 id="inputPassword"
@@ -53,6 +54,14 @@ export default () => {
                             />
                             <label htmlFor="inputPassword">Password</label>
                          </div>
+
+                         {errors.length > 0 &&
+                         <div className="alert alert-danger" role="alert">
+                            <h4>Ooops...</h4>
+                            <ul className="my-0">
+                               {errors.map(err => <li key={err.message}>{err.message}</li>)}
+                            </ul>
+                         </div>}
 
                          <div className="d-grid mb-2">
                             <button className="btn btn-lg btn-primary btn-login fw-bold text-uppercase"
@@ -68,5 +77,6 @@ export default () => {
              </div>
           </div>
        </div>
-   );
+   )
+       ;
 }
