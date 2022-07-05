@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-export default () => {
+const SignUp = () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
    const [errors, setErrors] = useState([]);
@@ -21,7 +21,8 @@ export default () => {
       }
    };
 
-   return (<div className="container">
+   return (
+       <div className="container">
           <div className="row">
              <div className="col-lg-10 col-xl-9 mx-auto">
                 <div className="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
@@ -77,6 +78,7 @@ export default () => {
              </div>
           </div>
        </div>
-   )
-       ;
-}
+   );
+};
+
+export default SignUp;
