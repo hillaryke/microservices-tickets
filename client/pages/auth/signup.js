@@ -1,25 +1,22 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useRequest } from '../../hooks/use-request';
+import useRequest from "../../hooks/use-request";
 
 const SignUp = () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
-   const [errors, setErrors] = useState([]);
+   const { doRequest, errors } = useRequest({
+      url: '/api/users/signup',
+      method: 'post',
+      body: {
+         email, password
+      }
+   });
 
    const onFormSubmit = async (event) => {
       event.preventDefault();
 
-      try {
-         await axios.post('/api/users/signup', {
-            email, password
-         });
-
-         setEmail('');
-         setPassword('');
-      } catch (err) {
-         setErrors(err.response.data.errors);
-      }
+      doRequest();
    };
 
    return (
@@ -56,6 +53,8 @@ const SignUp = () => {
                             />
                             <label htmlFor="inputPassword">Password</label>
                          </div>
+
+                         {errors}
 
                          <div className="d-grid mb-2">
                             <button className="btn btn-lg btn-primary btn-login fw-bold text-uppercase"
