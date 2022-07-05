@@ -1,11 +1,12 @@
 import '../style.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import builClient from '../api/build-client';
+import Header from '../components/header';
 
 const AppComponent = ({ Component, pageProps, currentUser }) => {
    return (
        <div>
-          <header>Header 1{currentUser.email}</header>
+          <Header currentUser={currentUser}/>
           <Component {...pageProps} />
        </div>
    );

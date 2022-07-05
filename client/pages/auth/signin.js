@@ -64,10 +64,8 @@ const SignUp = () => {
                             </button>
                          </div>
 
-                         <Link
-                             className="d-block text-center mt-2 small"
-                             href="/auth/signup"
-                         >Don't have an account? Sign Up
+                         <Link href="/auth/signup">
+                            <a className="d-block text-center mt-2 small">Don't have an account? Sign Up</a>
                          </Link>
 
                       </form>

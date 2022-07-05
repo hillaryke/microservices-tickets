@@ -64,10 +64,8 @@ const SignUp = () => {
                             </button>
                          </div>
 
-                         <Link
-                             className="d-block text-center mt-2 small"
-                             href="/auth/signin"
-                         >Have an account? Sign In
+                         <Link href="/auth/signin">
+                            <a className="d-block text-center mt-2 small">Have an account? Sign In</a>
                          </Link>
 
                       </form>
