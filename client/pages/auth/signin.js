@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import Router from 'next/router';
-import Link from "next/link";
 import useRequest from "../../hooks/use-request";
+import Link from "next/link";
 
 const SignUp = () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
    const { doRequest, errors } = useRequest({
-      url: '/api/users/signup',
+      url: '/api/users/signin',
       method: 'post',
       body: {
          email, password
@@ -29,7 +29,7 @@ const SignUp = () => {
                    <div className="card-img-left d-none d-md-flex">
                    </div>
                    <div className="card-body p-4 p-sm-5">
-                      <h5 className="card-title text-center mb-5 fw-light fs-5">Sign Up</h5>
+                      <h5 className="card-title text-center mb-5 fw-normal fs-5">Sign In</h5>
 
                       <form onSubmit={onFormSubmit}>
                          <div className="form-floating mb-3">
@@ -60,14 +60,14 @@ const SignUp = () => {
 
                          <div className="d-grid mb-2">
                             <button className="btn btn-lg btn-primary btn-login fw-bold text-uppercase"
-                                    type="submit">Sign Up
+                                    type="submit">Sign in
                             </button>
                          </div>
 
                          <Link
                              className="d-block text-center mt-2 small"
-                             href="/auth/signin"
-                         >Have an account? Sign In
+                             href="/auth/signup"
+                         >Don't have an account? Sign Up
                          </Link>
 
                       </form>
