@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { useRequest } from '../../hooks/use-request';
 
 const SignUp = () => {
    const [email, setEmail] = useState('');
@@ -55,14 +56,6 @@ const SignUp = () => {
                             />
                             <label htmlFor="inputPassword">Password</label>
                          </div>
-
-                         {errors.length > 0 &&
-                         <div className="alert alert-danger" role="alert">
-                            <h4>Ooops...</h4>
-                            <ul className="my-0">
-                               {errors.map(err => <li key={err.message}>{err.message}</li>)}
-                            </ul>
-                         </div>}
 
                          <div className="d-grid mb-2">
                             <button className="btn btn-lg btn-primary btn-login fw-bold text-uppercase"
