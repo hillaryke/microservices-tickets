@@ -14,6 +14,7 @@ beforeAll(async () => {
     process.env.JWT_KEY = 'asdf';
 
     mongo = new MongoMemoryServer();
+
     await mongo.start();
     const mongoUri = await mongo.getUri();
 
@@ -31,9 +32,13 @@ beforeEach(async () => {
     }
 });
 
+afterEach(() => {
+    jest.useRealTimers();
+});
+
 afterAll(async () => {
-    await mongo.stop();
     await mongoose.connection.close();
+    await mongo.stop();
 });
 
 global.signin = async () => {
