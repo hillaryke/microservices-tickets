@@ -10,6 +10,10 @@ it('has a route handler listening to /api/tickets for post requests', async () =
 });
 
 it('returns an error if an invalid title is provided', async () => {
+    await request(app)
+        .post('/api/tickets')
+        .send({})
+        .expect(401);
 
 });
 
