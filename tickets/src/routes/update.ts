@@ -18,6 +18,8 @@ router.put('/api/tickets/:id',
    validateRequest,
    requireAuth,
    async (req: Request, res: Response) => {
+      const { title, price } = req.body;
+
       const ticket = await Ticket.findById(req.params.id);
 
       if (!ticket) {
@@ -28,6 +30,9 @@ router.put('/api/tickets/:id',
          throw new NotAuthorizedError();
       }
 
+      ticket.set({ title, price });
+
+      await ticket.save();
 
       res.send(ticket);
    });
