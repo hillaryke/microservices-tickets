@@ -26,3 +26,12 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
+
+    - image: hilare/tickets
+      context: client
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: '**/*.js'
+            dest: .
