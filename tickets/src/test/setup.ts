@@ -3,9 +3,6 @@ import jwt from 'jsonwebtoken';
 
 const mongoose = require('mongoose');
 
-import { app } from '../app';
-import request from "supertest";
-
 declare global {
     function signin(): string[];
 }
@@ -15,6 +12,7 @@ beforeAll(async () => {
     process.env.JWT_KEY = 'asdf';
 
     mongo = new MongoMemoryServer();
+
     await mongo.start();
     const mongoUri = await mongo.getUri();
 
@@ -32,9 +30,13 @@ beforeEach(async () => {
     }
 });
 
+afterEach(() => {
+    jest.useRealTimers();
+});
+
 afterAll(async () => {
-    await mongo.stop();
     await mongoose.connection.close();
+    await mongo.stop();
 });
 
 global.signin = () => {
@@ -57,5 +59,5 @@ global.signin = () => {
     const base64 = Buffer.from(sessionJSON).toString('base64');
 
     // return a string thats the cookie with the encoded data
-    return [`express:sess=${base64}`];
+    return [`session=${base64}`];
 };
