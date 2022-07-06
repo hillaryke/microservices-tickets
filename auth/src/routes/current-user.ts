@@ -1,7 +1,7 @@
 const express = require("express");
 import { Request, Response } from "express";
 
-import { currentUser } from "../middlewares/current-user";
+import { currentUser } from "@itickets/common";
 
 const router = express.Router();
 

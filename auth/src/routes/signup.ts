@@ -1,12 +1,10 @@
 import { Request, Response } from "express";
 
-const { body, validationResult } = require('express-validator');
+const { body } = require('express-validator');
 import jwt from 'jsonwebtoken';
+import { validateRequest, BadRequestError } from "@itickets/common";
 
-import { validateRequest } from "../middlewares/validate-request";
 import { User } from '../models/User';
-import { RequestValidationError } from "../errors/request-validation-error";
-import { BadRequestError } from "../errors/bad-request-error";
 
 const express = require('express');
 const router = express.Router();
