@@ -18,11 +18,11 @@ spec:
           ports:
             - containerPort: 3000
           args: [
-              '-p', '4222'
-              '-m', '8222'
+              '-p', '4222',
+              '-m', '8222',
               '-hbi', '5s',
-              '-hbt', '5s'
-              '-hbf', '2'
+              '-hbt', '5s',
+              '-hbf', '2',
               '-SD',
               '-cid', 'ticketing'
           ]
