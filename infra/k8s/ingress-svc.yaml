@@ -18,6 +18,15 @@ spec:
                 port:
                   number: 3000
 
+          - path: /api/tickets/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: tickets-svc
+                port:
+                  number: 3000
+
+
           - path: /?(.*)
             pathType: Prefix
             backend:
@@ -33,6 +42,17 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: mongo-express-svc
+                name: auth-mongo-express-svc
+                port:
+                  number: 8081
+
+    - host: tickets.db
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tickets-mongo-express-svc
                 port:
                   number: 8081

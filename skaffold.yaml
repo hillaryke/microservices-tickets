@@ -28,7 +28,7 @@ build:
             dest: .
 
     - image: hilare/tickets
-      context: client
+      context: tickets
       docker:
         dockerfile: Dockerfile.dev
       sync:
