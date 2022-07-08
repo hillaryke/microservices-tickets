@@ -13,7 +13,7 @@ stan.on('connect', () => {
       price: 20,
    });
 
-   stan.publish('ticket:created', data, () => {
+   stan.publish('ticket:created', JSON.stringify(data), () => {
       console.log('Event published');
    });
 });
