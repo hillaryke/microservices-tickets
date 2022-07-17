@@ -7,6 +7,8 @@ import {
    requireAuth,
    NotAuthorizedError
 } from "@itickets/common";
+import { TicketUpdatedPublisher } from "../events/publishers/ticket-updated-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
@@ -33,6 +35,12 @@ router.put('/api/tickets/:id',
       ticket.set({ title, price });
 
       await ticket.save();
+      await new TicketUpdatedPublisher(natsWrapper.client).publish({
+         id: ticket.id,
+         title: ticket.title,
+         price: ticket.price,
+         userId: ticket.userId
+      });
 
       res.send(ticket);
    });
