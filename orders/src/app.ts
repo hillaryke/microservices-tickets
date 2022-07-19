@@ -5,10 +5,10 @@ import 'express-async-errors';
 import cookieSession from "cookie-session";
 import { errorHandler, NotFoundError, currentUser } from "@itickets/common";
 
-import { createTicketRouter } from "./routes/new";
-import { showTicketRouter } from "./routes/show";
-import { indexTicketRouter } from "./routes/index";
-import { updateTicketRouter } from "./routes/update";
+import { indexOrderRouter } from "./routes/index";
+import { newOrderRouter } from "./routes/new";
+import { showOrderRouter } from "./routes/show";
+import { deleteOrderRouter } from "./routes/delete";
 
 const app = express();
 
@@ -23,10 +23,10 @@ app.use(cookieSession({
 
 app.use(currentUser);
 
-app.use(createTicketRouter);
-app.use(showTicketRouter);
-app.use(indexTicketRouter);
-app.use(updateTicketRouter);
+app.use(indexOrderRouter);
+app.use(showOrderRouter);
+app.use(newOrderRouter);
+app.use(deleteOrderRouter);
 
 app.all('*', async () => {
    throw new NotFoundError();
