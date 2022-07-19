@@ -26,6 +26,13 @@ spec:
                 port:
                   number: 3000
 
+          - path: /api/orders/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: orders-svc
+                port:
+                  number: 3000
 
           - path: /?(.*)
             pathType: Prefix
@@ -54,5 +61,16 @@ spec:
             backend:
               service:
                 name: tickets-mongo-express-svc
+                port:
+                  number: 8081
+
+    - host: orders.db
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: orders-mongo-express-svc
                 port:
                   number: 8081
