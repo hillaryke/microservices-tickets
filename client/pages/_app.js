@@ -1,4 +1,4 @@
-import '../style.css';
+import '../dist/style.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import builClient from '../api/build-client';
 import Header from '../components/header';
