@@ -5,6 +5,7 @@ interface TicketAttrs {
    id?: string;
    title: string;
    price: number;
+   version: number;
 }
 
 export interface TicketDoc extends mongoose.Document {
@@ -33,7 +34,9 @@ const ticketSchema = new mongoose.Schema({
          ret.id = ret._id;
          delete ret._id;
       }
-   }
+   },
+   optimisticConcurrency: true,
+   versionKey: 'version'
 });
 
 ticketSchema.statics.build = (attrs: TicketAttrs) => {
