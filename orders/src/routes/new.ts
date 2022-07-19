@@ -47,7 +47,7 @@ router.post('/api/orders',
       });
       await order.save();
 
-      // Publish and event saying that and order was created
+      // TODO Publish and event saying that and order was created
       res.status(201).send(order);
    });
 

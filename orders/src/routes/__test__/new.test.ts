@@ -56,6 +56,7 @@ it('reserves a ticket', async () => {
       .expect(201);
 
    const savedOrder = await Order.findById(response.body.id).populate('ticket');
-
    expect(savedOrder?.ticket.id).toEqual(ticket.id);
 });
+
+it.todo('emits an order created event');
