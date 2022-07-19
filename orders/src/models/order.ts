@@ -27,7 +27,7 @@ const orderSchema = new mongoose.Schema({
    status: {
       type: String,
       required: true,
-      enum: Object.Values(OrderStatus),
+      enum: Object.values(OrderStatus),
       default: OrderStatus.Created
    },
    expiresAt: {
