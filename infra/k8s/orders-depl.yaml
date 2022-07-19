@@ -15,6 +15,7 @@ spec:
       containers:
         - name: orders
           image: hilare/orders
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
           env:
