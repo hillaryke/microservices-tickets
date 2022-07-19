@@ -28,7 +28,7 @@ export default ({ currentUser }) => {
              </div>
           </Link>
 
-          <div class="w-full block sm:flex sm:items-center sm:w-auto">
+          <div className="w-full block sm:flex sm:items-center sm:w-auto">
              <div className="text-sm sm:flex-grow">
                 {links}
              </div>

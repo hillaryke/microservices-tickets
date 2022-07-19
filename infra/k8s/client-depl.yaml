@@ -15,6 +15,7 @@ spec:
       containers:
         - name: client
           image: hilare/client
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
 ---
