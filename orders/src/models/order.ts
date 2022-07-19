@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 import { OrderStatus } from "@itickets/common";
+import { TicketDoc } from "./ticket";
+
 
 interface OrderAttrs {
    userId: string;
