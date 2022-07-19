@@ -3,6 +3,7 @@ import { app } from "../../app";
 import { Ticket } from "../../models/ticket";
 import { OrderStatus } from "@itickets/common";
 import { Order } from "../../models/order";
+import { natsWrapper } from "../../nats-wrapper";
 
 const mongoose = require('mongoose');
 
@@ -59,4 +60,18 @@ it('reserves a ticket', async () => {
    expect(savedOrder?.ticket.id).toEqual(ticket.id);
 });
 
-it.todo('emits an order created event');
+it('emits an order created event', async () => {
+   const ticket = Ticket.build({
+      title: 'concert',
+      price: 30
+   });
+   await ticket.save();
+
+   const response = await request(app)
+      .post('/api/orders')
+      .set('Cookie', global.signin())
+      .send({ ticketId: ticket.id })
+      .expect(201);
+
+   expect(natsWrapper.client.publish).toHaveBeenCalled();
+});
