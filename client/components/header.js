@@ -10,24 +10,28 @@ export default ({ currentUser }) => {
        .filter(linkConfig => linkConfig)
        .map(({ label, href, onBtnClick }) => {
           return (
-              <li key={href} className="nav-item">
-                 <Link href={href}>
-                    <a onClick={onBtnClick ? onBtnClick : null} className="nav-link">{label}</a>
-                 </Link>
-              </li>
+              <Link href={href} key={href}>
+                 <a
+                     className="no-underline cursor-pointer inline-block leading-5 px-4 py-2 border border-white rounded
+                                sm:inline-block sm:mt-0 text-teal-200 mr-5 text-slate-50
+                                hover:border-transparent hover:text-blue-800 hover:bg-white"
+                     onClick={onBtnClick ? onBtnClick : null}>{label}</a>
+              </Link>
           );
        });
 
    return (
-       <nav className="navbar navbar-light bg-light">
+       <nav className="flex items-center justify-between flex-wrap bg-gray-800 px-6 py-4">
           <Link href="/">
-             <a className="navbar-brand">GitTix</a>
+             <div className="flex items-center flex-shrink-0 text-white mr-6">
+                <span className="font-bold text-2xl">iTickets</span>
+             </div>
           </Link>
 
-          <div className="d-flex justify-content-end">
-             <ul className="nav d-flex align-items-center">
+          <div class="w-full block sm:flex sm:items-center sm:w-auto">
+             <div className="text-sm sm:flex-grow">
                 {links}
-             </ul>
+             </div>
           </div>
        </nav>
    );
