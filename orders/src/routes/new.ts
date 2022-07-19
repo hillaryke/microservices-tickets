@@ -48,7 +48,8 @@ router.post('/api/orders',
          ticket: ticket
       });
       await order.save();
-      
+
+      // Publish and event saying that and order was created
       new OrderCancelledPublisher(natsWrapper.client).publish({
          id: order.id,
          status: order.status,
