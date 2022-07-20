@@ -5,7 +5,7 @@ import {
    validateRequest,
    NotFoundError,
    requireAuth,
-   NotAuthorizedError
+   NotAuthorizedError, BadRequestError
 } from "@itickets/common";
 import { TicketUpdatedPublisher } from "../events/publishers/ticket-updated-publisher";
 import { natsWrapper } from "../nats-wrapper";
@@ -26,6 +26,10 @@ router.put('/api/tickets/:id',
 
       if (!ticket) {
          throw new NotFoundError();
+      }
+
+      if (ticket.orderId) {
+         throw new BadRequestError('Cannot edit a reserved ticket');
       }
 
       if (ticket.userId !== req.currentUser!.id) {
