@@ -16,6 +16,7 @@ spec:
       containers:
         - name: auth-mongo-express
           image: mongo-express:0.54.0
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
           env:

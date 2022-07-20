@@ -15,6 +15,7 @@ spec:
       containers:
         - name: tickets-mongo
           image: mongo
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 27017
 ---

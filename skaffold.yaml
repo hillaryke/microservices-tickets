@@ -35,3 +35,12 @@ build:
         manual:
           - src: '**/*.ts'
             dest: .
+
+    - image: hilare/orders
+      context: orders
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: '**/*.ts'
+            dest: .
