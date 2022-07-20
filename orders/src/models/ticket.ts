@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 import { Order, OrderStatus } from "./order";
 
-// import { updateIfCurrentPlugin } from "mongoose-update-if-current";
-
 interface TicketAttrs {
    id?: string;
    title: string;
@@ -29,7 +27,7 @@ const ticketSchema = new mongoose.Schema({
       required: true
    },
    price: {
-      type: String,
+      type: Number,
       required: true
    }
 }, {
@@ -42,8 +40,6 @@ const ticketSchema = new mongoose.Schema({
    optimisticConcurrency: true,
    versionKey: 'version'
 });
-
-// ticketSchema.plugin(updateIfCurrentPlugin);
 
 ticketSchema.statics.findByEvent = (event: { id: string, version: number }) => {
    return Ticket.findOne({
