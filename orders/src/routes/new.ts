@@ -9,7 +9,7 @@ import { OrderCreatedPublisher } from "../events/publishers/order-created-publis
 
 const router = express.Router();
 
-const EXPIRATION_WINDOW_SECONDS = 15 * 60; // 15 minutes
+const EXPIRATION_WINDOW_SECONDS = 1 * 60; // 1 minute
 
 router.post('/api/orders',
    requireAuth, [
@@ -25,7 +25,7 @@ router.post('/api/orders',
       const { ticketId } = req.body;
 
       // Find the ticket the user is trying to order in the database
-      const ticket = await Ticket.findOne({ "id": ticketId });
+      const ticket = await Ticket.findById(ticketId);
       if (!ticket) {
          throw new NotFoundError();
       }
