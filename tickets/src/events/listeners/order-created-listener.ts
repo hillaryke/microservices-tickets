@@ -10,7 +10,7 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
 
    async onMessage(data: OrderCreatedEvent["data"], msg: Message) {
       // Find the ticket that the order is reserving
-      const ticket = await Ticket.findOne({ "id": data.ticket.id });
+      const ticket = await Ticket.findById(data.ticket.id);
 
       // If no ticket , throw error
       if (!ticket) {
