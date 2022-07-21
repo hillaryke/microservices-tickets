@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 import mongoose from "mongoose";
 import { Order, OrderStatus } from "./order";
 
@@ -43,13 +44,13 @@ const ticketSchema = new mongoose.Schema({
 
 ticketSchema.statics.findByEvent = (event: { id: string, version: number }) => {
    return Ticket.findOne({
-      "id": event.id,
+      _id: event.id,
       version: event.version - 1,
    });
 };
 ticketSchema.statics.build = (attrs: TicketAttrs) => {
    return new Ticket({
-      _id: attrs.id,
+      _id: ObjectId(attrs.id),
       title: attrs.title,
       price: attrs.price
    });
