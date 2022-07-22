@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import {
@@ -16,11 +17,15 @@ router.post('/api/payments',
    requireAuth,
    [
       body('token').not().isEmpty(),
-      body('orderId').not().isEmpty()
+      body('orderId')
+         .not()
+         .isEmpty()
+         .custom((input: string) => mongoose.Types.ObjectId.isValid(input))
+         .withMessage('orderId must be provided')
    ],
    validateRequest,
    async (req: Request, res: Response) => {
-      const { token, orderId } = req.body();
+      const { token, orderId } = req.body;
 
       // Find order associated with the charge
       const order = await Order.findById(orderId);
