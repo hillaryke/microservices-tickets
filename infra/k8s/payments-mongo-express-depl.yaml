@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payments-mongo-express-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payments-mongo-express
+  template:
+    metadata:
+      labels:
+        app: payments-mongo-express
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: payments-mongo-express
+          image: mongo-express:0.54.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8081
+          env:
+            - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+              value: ${MONGO_ROOT_USER}
+            - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+              value: ${MONGO_ROOT_PASS}
+            - name: ME_CONFIG_MONGODB_AUTH_DATABASE
+              value: admin
+            - name: ME_CONFIG_MONGODB_SERVER
+              value: payments-mongo-svc
+            - name: ME_CONFIG_MONGODB_ENABLE_ADMIN
+              value: "true"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payments-mongo-express-svc
+spec:
+  #  type: NodePort
+  selector:
+    app: payments-mongo-express
+  ports:
+    - name: payments-mongo-express
+      protocol: TCP
+      port: 8081
+      targetPort: 8081
+#      nodePort: 30000
