@@ -12,7 +12,7 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
    async onMessage(data: ExpirationCompleteEvent["data"], msg: Message) {
       // Find order with expiration complete
       const order = await Order.findById(data.orderId).populate('ticket');
-
+      console.log('========ECL 1============', order);
       // Check if order exists
       if (!order) {
          throw new NotFoundError();
@@ -23,7 +23,7 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
          status: OrderStatus.Cancelled
       });
       await order.save();
-
+      console.log('=========ECL 2===========', order);
       // Emit event saying order is cancelled
       await new OrderCancelledPublisher(natsWrapper.client).publish({
          id: order.id,

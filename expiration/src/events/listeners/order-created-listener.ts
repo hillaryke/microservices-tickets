@@ -8,6 +8,8 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
    queueGroupName = queueGroupName;
 
    async onMessage(data: OrderCreatedEvent["data"], msg: Message) {
+      console.log('=======OCL-exp=========', data);
+
       const delay = new Date(data.expiresAt).getTime() - new Date().getTime();
       console.log('Waiting this many milliseconds to process the job: ', delay);
 
