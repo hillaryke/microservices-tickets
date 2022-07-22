@@ -49,8 +49,6 @@ it('returns a 400 when purchasing a cancelled order with same user', async () =>
    });
    await order.save();
 
-   console.log(order);
-
    await request(app)
       .post('/api/payments')
       .set("Cookie", global.signin(userId))
