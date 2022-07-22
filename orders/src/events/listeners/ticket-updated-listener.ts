@@ -21,11 +21,7 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
 
       const existingTicket = await Ticket.exists({ title, price });
 
-      if (!existingTicket) {
-         // Update ticket given new title or price values, then save it
-         ticket.set({ title, price });
-         await ticket.save();
-      } else {
+      if (existingTicket) {
          // Only update version for existing ticket
          // since mongoose OCC *on save* cannot do that when values given are unchanged
          await Ticket.findOneAndUpdate(filterQuery,
@@ -33,6 +29,10 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
                $inc: { version: 1 }
             }
          );
+      } else {
+         // Update ticket given new title or price values, then save it
+         ticket.set({ title, price });
+         await ticket.save();
       }
 
       msg.ack();
