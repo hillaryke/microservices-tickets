@@ -44,3 +44,12 @@ build:
         manual:
           - src: '**/*.ts'
             dest: .
+
+    - image: hilare/expiration
+      context: expiration
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: '**/*.ts'
+            dest: .
