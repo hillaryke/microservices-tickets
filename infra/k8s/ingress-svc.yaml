@@ -34,6 +34,14 @@ spec:
                 port:
                   number: 3000
 
+          - path: /api/payments/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: payments-svc
+                port:
+                  number: 3000
+
           - path: /?(.*)
             pathType: Prefix
             backend:
@@ -72,5 +80,16 @@ spec:
             backend:
               service:
                 name: orders-mongo-express-svc
+                port:
+                  number: 8081
+
+    - host: payments.db
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: payments-mongo-express-svc
                 port:
                   number: 8081
