@@ -18,8 +18,6 @@ export interface TicketDoc extends mongoose.Document {
 
 interface TicketModel extends mongoose.Model<TicketDoc> {
    build(attrs: TicketAttrs): TicketDoc;
-
-   findByQuery(query: { id: string, version: number }): Promise<TicketDoc | null>;
 }
 
 const ticketSchema = new mongoose.Schema({
@@ -42,17 +40,6 @@ const ticketSchema = new mongoose.Schema({
    versionKey: 'version'
 });
 
-ticketSchema.statics.findByQuery = async (query) => {
-   console.log('=======FBE 1=========', query);
-   const ticket = await Ticket.findOne(query);
-
-   const ticket2 = await Ticket.findOne({ id: query.id });
-   console.log('=======FBE 2 ONLY BY ID, noversion=============');
-   console.log(ticket2);
-
-   console.log('=======FBE 2=========', ticket);
-   return ticket;
-};
 ticketSchema.statics.build = (attrs: TicketAttrs) => {
    return new Ticket({
       _id: ObjectId(attrs.id),

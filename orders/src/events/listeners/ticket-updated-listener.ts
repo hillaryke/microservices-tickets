@@ -9,19 +9,22 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
 
    async onMessage(data: TicketUpdatedEvent["data"], msg: Message) {
       console.log('=======TUL 1=========', data);
+      const { title, price } = data;
 
       const filterQuery = {
          id: data.id,
          version: data.version - 1
       };
-      const ticket = await Ticket.findByQuery(filterQuery);
+      const ticket = await Ticket.findOne(filterQuery);
 
       console.log('==========TUL 1.1========', ticket);
       if (!ticket) {
          throw new Error('Ticket not found');
       }
 
-      if (data.orderId) {
+      const existingTicket = await Ticket.exists({ title, price });
+
+      if (existingTicket) {
          console.log('====== TUL --1.2 UPDATING VERSION ======');
          await Ticket.findOneAndUpdate(filterQuery,
             {
@@ -30,10 +33,7 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
          );
       } else {
          // Update ticket given new title or price values, then save it
-         ticket.set({
-            title: data.title,
-            price: data.price
-         });
+         ticket.set({ title, price });
          await ticket.save();
       }
 

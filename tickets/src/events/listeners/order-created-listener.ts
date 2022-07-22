@@ -9,12 +9,8 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
    queueGroupName = queueGroupName;
 
    async onMessage(data: OrderCreatedEvent["data"], msg: Message) {
-      console.log('=======OCreaE 1=========', data);
-
       // Find the ticket that the order is reserving
       const ticket = await Ticket.findById(data.ticket.id);
-
-      console.log('=======OCreaE 2=========', ticket);
 
       // If no ticket , throw error
       if (!ticket) {
@@ -26,8 +22,6 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
 
       // Save the ticket
       await ticket.save();
-
-      console.log('=======OCreaE 3========', ticket);
 
       // Emit event
       await new TicketUpdatedPublisher(this.client).publish({
