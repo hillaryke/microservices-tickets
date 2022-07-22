@@ -11,6 +11,7 @@ router.post('/api/payments',
       body('token').not().isEmpty(),
       body('orderId').not().isEmpty()
    ],
+   validateRequest,
    async (req: Request, res: Response) => {
       res.send({ success: true });
    });
