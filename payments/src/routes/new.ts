@@ -9,6 +9,7 @@ import {
    NotAuthorizedError,
    OrderStatus
 } from "@itickets/common";
+import { stripe } from "../stripe";
 import { Order } from "../models/order";
 
 const router = express.Router();
@@ -43,6 +44,12 @@ router.post('/api/payments',
       if (order.status === OrderStatus.Cancelled) {
          throw new BadRequestError('Cannot process payments for cancelled order!');
       }
+
+      await stripe.charges.create({
+         amount: order.price * 100,
+         currency: 'usd',
+         source: token
+      });
 
       res.send({ success: true });
    });
