@@ -16,13 +16,13 @@ const start = async () => {
          useNewUrlParser: true,
          useUnifiedTopology: true
       });
-      console.log('Auth MongoDB Connected...');
+      console.log('🌱 MongoDB Connected...');
    } catch (err) {
       console.error(err);
    }
 
    app.listen(3000, () => {
-      console.log('Auth listening on port 3000');
+      console.log('🧬 listening on port 3000');
    });
 };
 
