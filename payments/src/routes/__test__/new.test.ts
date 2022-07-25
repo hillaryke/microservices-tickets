@@ -4,8 +4,9 @@ import { app } from "../../app";
 import { Order } from "../../models/order";
 import { OrderStatus } from "@itickets/common";
 import { stripe } from "../../stripe";
+import { Payment } from "../../models/payment";
 
-jest.mock('../../stripe');
+jest.setTimeout(30000);
 
 it('returns a 404 when purchasing on order that does not exist', async () => {
    await request(app)
@@ -83,12 +84,10 @@ it('returns a 204 with valid inputs', async () => {
       .expect(201);
 
    const stripeCharges = await stripe.charges.list({ limit: 50 });
-
-   // @TODO Test failed, need to figure out why
    const stripeCharge = stripeCharges.data.find(charge => {
       return charge.amount === price * 100;
    });
 
    expect(stripeCharge).toBeDefined();
    expect(stripeCharge!.currency).toEqual('usd');
-});
+}, 30 * 1000);
