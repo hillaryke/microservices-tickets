@@ -58,7 +58,7 @@ router.post('/api/payments',
       });
       await payment.save();
 
-      res.status(201).send(order);
+      res.status(201).send({ success: true });
    });
 
 export { router as createChargeRouter };
