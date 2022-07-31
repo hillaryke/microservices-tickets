@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Router from 'next/router';
 import useRequest from "../../hooks/use-request";
 
 const NewTicket = () => {
@@ -10,7 +11,7 @@ const NewTicket = () => {
       body: {
          title, price
       },
-      onSuccess: (ticket) => console.log(ticket)
+      onSuccess: () => Router.push('/')
    });
 
    const onSubmit = (event) => {
@@ -29,8 +30,8 @@ const NewTicket = () => {
    return (
        <div className="flex min-h-full flex-col justify-center my-14">
           <div className="mx-auto w-full max-w-md px-8">
-             <div className="mb-6">
-                <h1 className="text-xl">Create a Ticket</h1>
+             <div className="mb-7">
+                <h1 className="text-3xl font-bold">Create a Ticket</h1>
              </div>
              <form onSubmit={onSubmit} method="post" className="space-y-6">
                 <div>
@@ -47,7 +48,7 @@ const NewTicket = () => {
                           type="text"
                           className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
                       />
-                      {displayError('title')}
+                      {displayFieldError('title')}
                    </div>
                 </div>
 
@@ -63,9 +64,10 @@ const NewTicket = () => {
                           id="price"
                           className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
                       />
-                      {displayError('price')}
+                      {displayFieldError('price')}
                    </div>
                 </div>
+                {errors}
 
                 <button
                     type="submit"

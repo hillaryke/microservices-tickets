@@ -17,7 +17,6 @@ const SignUp = () => {
 
    const onFormSubmit = async (event) => {
       event.preventDefault();
-
       doRequest();
    };
 
@@ -65,6 +64,7 @@ const SignUp = () => {
                          {displayFieldError('password')}
                       </div>
                    </div>
+                   {errors}
 
                    <div>
                       <button

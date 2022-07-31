@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 
 const useRequest = ({ url, method, body, onSuccess }) => {
-   const [errors, setErrors] = useState([]);
+   const [errors, setErrors] = useState('');
    const [errorsdev, setDevErrors] = useState([]);
 
    const doRequest = async () => {
@@ -19,12 +19,11 @@ const useRequest = ({ url, method, body, onSuccess }) => {
          setDevErrors(err.response.data.errors);
 
          setErrors(
-             <div className="pt-1 text-red-700" role="alert">
-                <h4>Ooops...</h4>
+             <div className="mt-1 text-red-700" role="alert">
                 <ul>
-                   {err.response.data.errors.map(err => (
-                       <li key={err.message}>{err.message}</li>
-                   ))}
+                   {err.response.data.errors.map(err => {
+                      return !err.field ? <li key={err.message}>{err.message}</li> : null;
+                   })}
                 </ul>
              </div>
          );
