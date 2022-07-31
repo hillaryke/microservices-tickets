@@ -7,6 +7,11 @@ module.exports = {
       "./hooks/**/*.{html,js}"
    ],
    theme: {
+      fontFamily: {
+         Lato: ["Lato", "sans-serif"],
+         poppins: ["Poppins", "sans-serif"],
+         Montserrat: ["Montserrat", "sans-serif"]
+      },
       extend: {
          colors: {
             veryLightGray: 'hsl(0, 0%, 96%)',
