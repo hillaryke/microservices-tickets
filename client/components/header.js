@@ -21,18 +21,20 @@ export default ({ currentUser }) => {
        });
 
    return (
-       <nav className="flex items-center justify-between flex-wrap bg-gray-800 px-6 py-4">
-          <Link href="/">
-             <div className="flex items-center flex-shrink-0 text-white mr-6">
-                <span className="font-bold text-2xl">iTickets</span>
-             </div>
-          </Link>
+       <div className="bg-gray-800 flex justify-center">
+          <nav className="flex items-center justify-between px-6 py-4 max-w-screen-lg w-screen">
+             <Link href="/">
+                <div className="flex items-center flex-shrink-0 text-white mr-6 pl-1.5">
+                   <span className="font-bold text-2xl">iTickets</span>
+                </div>
+             </Link>
 
-          <div className="w-full block sm:flex sm:items-center sm:w-auto">
-             <div className="text-sm sm:flex-grow">
-                {links}
+             <div className="w-full block sm:flex sm:items-center sm:w-auto">
+                <div className="text-sm sm:flex-grow -mr-5">
+                   {links}
+                </div>
              </div>
-          </div>
-       </nav>
+          </nav>
+       </div>
    );
 }
