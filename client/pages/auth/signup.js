@@ -77,7 +77,7 @@ const SignUp = () => {
 
                    <div className="text-center text-sm text-gray-500">
                       Already have an account?{" "}
-                      <Link href="/auth/signup">
+                      <Link href="/auth/signin">
                          <a className="text-blue-500 underline"> Sign in</a>
                       </Link>
                    </div>
