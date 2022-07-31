@@ -1,4 +1,15 @@
+import useRequest from "../../hooks/use-request";
+
 const TicketShow = ({ ticket }) => {
+   const { doRequest, errors } = useRequest({
+      url: '/api/orders',
+      method: 'post',
+      body: {
+         ticketId: ticket.id
+      },
+      onSuccess: (order) => console.log(order)
+   });
+
    return (
        <div className="bg-gray-600 flex flex-col items-center">
           <div className="py-7">
@@ -27,13 +38,15 @@ const TicketShow = ({ ticket }) => {
                     className="flex-1 flex flex-col justify-between border-t-2 border-gray-100 p-6 bg-gray-50 sm:p-8 lg:p-6 xl:p-10">
                    <div>
                       <div className="rounded-lg flex justify-center">
-                         <a
-                             href="#"
+                         <button
+                             onClick={doRequest}
                              className="block w-11/12 md:w-full text-center rounded-lg border border-transparent bg-indigo-600 px-6 py-3 text-lg leading-4 font-medium text-white hover:bg-indigo-700"
                              aria-describedby="tier-hobby"
-                         >Purchase</a>
+                         >Purchase
+                         </button>
                       </div>
                    </div>
+                   {errors}
                 </div>
              </div>
           </div>
