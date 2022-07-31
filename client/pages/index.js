@@ -37,10 +37,10 @@ const LandingPage = ({ currentUser, tickets }) => {
                              {ticket.title}
                           </td>
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ticket.price}</td>
-                          <td className="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                          <td className="whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
                              <Link href="/tickets/[ticketId]" as={`/tickets/${ticket.id}`}>
                                 <a className="text-indigo-600 hover:text-indigo-900">
-                                   Link<span className="sr-only">, {ticket.title}</span>
+                                   View<span className="sr-only">, {ticket.title}</span>
                                 </a>
                              </Link>
                           </td>
