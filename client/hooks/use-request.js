@@ -3,6 +3,7 @@ import { useState } from "react";
 
 const useRequest = ({ url, method, body, onSuccess }) => {
    const [errors, setErrors] = useState([]);
+   const [errorsdev, setDevErrors] = useState([]);
 
    const doRequest = async () => {
       try {
@@ -15,10 +16,12 @@ const useRequest = ({ url, method, body, onSuccess }) => {
 
          return response.data;
       } catch (err) {
+         setDevErrors(err.response.data.errors);
+
          setErrors(
-             <div className="alert alert-danger" role="alert">
+             <div className="text-red" role="alert">
                 <h4>Ooops...</h4>
-                <ul className="my-0">
+                <ul>
                    {err.response.data.errors.map(err => (
                        <li key={err.message}>{err.message}</li>
                    ))}
@@ -28,7 +31,7 @@ const useRequest = ({ url, method, body, onSuccess }) => {
       }
    };
 
-   return { doRequest, errors };
+   return { doRequest, errors, errorsdev };
 
 };
 
