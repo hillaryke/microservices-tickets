@@ -4,7 +4,7 @@ import useRequest from "../../hooks/use-request";
 const NewTicket = () => {
    const [title, setTitle] = useState('');
    const [price, setPrice] = useState('');
-   const { doRequest, errors, errorsdev } = useRequest({
+   const { doRequest, errors, displayFieldError } = useRequest({
       url: '/api/tickets',
       method: 'post',
       body: {
@@ -26,12 +26,6 @@ const NewTicket = () => {
       setPrice(value.toFixed(2));
    };
 
-   const displayError = (field) => {
-      const fieldError = errorsdev.find(err => err.field === field);
-      return fieldError ?
-          <div className="pt-1 text-red-700">{fieldError.message}</div>
-          : null;
-   };
    return (
        <div className="flex min-h-full flex-col justify-center my-14">
           <div className="mx-auto w-full max-w-md px-8">

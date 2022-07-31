@@ -6,7 +6,7 @@ import Link from "next/link";
 const SignUp = () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
-   const { doRequest, errors } = useRequest({
+   const { doRequest, displayFieldError } = useRequest({
       url: '/api/users/signin',
       method: 'post',
       body: {
@@ -46,6 +46,7 @@ const SignUp = () => {
                              required
                              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                          />
+                         {displayFieldError('email')}
                       </div>
                    </div>
 
@@ -64,6 +65,7 @@ const SignUp = () => {
                              required
                              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                          />
+                         {displayFieldError('password')}
                       </div>
                    </div>
 

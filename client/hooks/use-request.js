@@ -19,7 +19,7 @@ const useRequest = ({ url, method, body, onSuccess }) => {
          setDevErrors(err.response.data.errors);
 
          setErrors(
-             <div className="text-red" role="alert">
+             <div className="pt-1 text-red-700" role="alert">
                 <h4>Ooops...</h4>
                 <ul>
                    {err.response.data.errors.map(err => (
@@ -31,7 +31,14 @@ const useRequest = ({ url, method, body, onSuccess }) => {
       }
    };
 
-   return { doRequest, errors, errorsdev };
+   const displayFieldError = (field) => {
+      const fieldError = errorsdev.find(err => err.field === field);
+      return fieldError ?
+          <div className="pt-1 text-red-700" role="alert">{fieldError.message}</div>
+          : null;
+   };
+
+   return { doRequest, errors, errorsdev, displayFieldError };
 
 };
 
