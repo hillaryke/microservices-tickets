@@ -15,23 +15,25 @@ const NewTicket = () => {
 
    const onSubmit = (event) => {
       event.preventDefault();
-
       doRequest();
-      console.log(errors);
    };
 
    const onBlur = () => {
       const value = parseFloat(price);
-
       if (isNaN(value)) {
          return;
       }
-
       setPrice(value.toFixed(2));
    };
 
+   const displayError = (field) => {
+      const fieldError = errorsdev.find(err => err.field === field);
+      return fieldError ?
+          <div className="pt-1 text-red-700">{fieldError.message}</div>
+          : null;
+   };
    return (
-       <div className="flex min-h-full flex-col justify-center mt-9">
+       <div className="flex min-h-full flex-col justify-center my-14">
           <div className="mx-auto w-full max-w-md px-8">
              <div className="mb-6">
                 <h1 className="text-xl">Create a Ticket</h1>
@@ -51,10 +53,7 @@ const NewTicket = () => {
                           type="text"
                           className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
                       />
-                      {errorsdev.length >= 1 ? errorsdev.map(err => {
-                         return err.field === 'title' &&
-                             <div className="pt-1 text-red-700">{err.message}</div>;
-                      }) : null}
+                      {displayError('title')}
                    </div>
                 </div>
 
@@ -70,10 +69,7 @@ const NewTicket = () => {
                           id="price"
                           className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
                       />
-                      {errorsdev.length >= 1 ? errorsdev.map(err => {
-                         return err.field === 'price' &&
-                             <div className="pt-1 text-red-700">{err.message}</div>;
-                      }) : null}
+                      {displayError('price')}
                    </div>
                 </div>
 
