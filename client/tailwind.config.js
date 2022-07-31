@@ -7,7 +7,12 @@ module.exports = {
       "./hooks/**/*.{html,js}"
    ],
    theme: {
-      extend: {},
+      extend: {
+         colors: {
+            veryLightGray: 'hsl(0, 0%, 96%)',
+            brightRed: 'hsl(12, 88%, 59%)',
+         }
+      },
    },
    plugins: [],
 };

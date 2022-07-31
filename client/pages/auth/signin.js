@@ -22,56 +22,73 @@ const SignUp = () => {
    };
 
    return (
-       <div className="container">
-          <div className="row">
-             <div className="col-lg-10 col-xl-9 mx-auto">
-                <div className="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
-                   <div className="card-img-left d-none d-md-flex">
-                   </div>
-                   <div className="card-body p-4 p-sm-5">
-                      <h5 className="card-title text-center mb-5 fw-normal fs-5">Sign In</h5>
-
-                      <form onSubmit={onFormSubmit}>
-                         <div className="form-floating mb-3">
-                            <input
-                                value={email}
-                                onChange={e => setEmail(e.target.value)}
-                                type="email"
-                                className="form-control"
-                                id="inputEmail"
-                                placeholder="name@example.com"
-                            />
-                            <label htmlFor="inputEmail">Email address</label>
-                         </div>
-
-                         <div className="form-floating mb-3">
-                            <input
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
-                                type="password"
-                                className="form-control"
-                                id="inputPassword"
-                                placeholder="Password"
-                            />
-                            <label htmlFor="inputPassword">Password</label>
-                         </div>
-
-                         {errors}
-
-                         <div className="d-grid mb-2">
-                            <button className="btn btn-lg btn-primary btn-login fw-bold text-uppercase"
-                                    type="submit">Sign in
-                            </button>
-                         </div>
-
-                         <Link href="/auth/signup">
-                            <a className="d-block text-center mt-2 small">Don't have an account? Sign Up</a>
-                         </Link>
-
-                      </form>
+       <div className="flex min-h-full flex-col justify-center">
+          <div className="mx-auto w-full max-w-md px-8">
+             <form onSubmit={onFormSubmit} method="post" className="space-y-6">
+                <div>
+                   <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                      Email address
+                   </label>
+                   <div className="mt-1">
+                      <input
+                          value={email}
+                          onChange={e => setEmail(e.target.value)}
+                          id="inputEmail"
+                          required
+                          autoFocus={true}
+                          type="email"
+                          autoComplete="email"
+                          placeholder="name@example.com"
+                          className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
+                      />
                    </div>
                 </div>
-             </div>
+
+                <div>
+                   <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                      Password
+                   </label>
+                   <div className="mt-1">
+                      <input
+                          id="inputPassword"
+                          type="password"
+                          className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
+                      />
+                   </div>
+                </div>
+
+                <button
+                    type="submit"
+                    className="w-full rounded bg-blue-500  py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400"
+                >
+                   Log in
+                </button>
+                <div className="flex items-center justify-between">
+                   <div className="flex items-center">
+                      <input
+                          id="remember"
+                          name="remember"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      />
+                      <label
+                          htmlFor="remember"
+                          className="ml-2 block text-sm text-gray-900"
+                      >
+                         Remember me
+                      </label>
+                   </div>
+                   <div className="text-center text-sm text-gray-500">
+                      Don't have an account?{" "}
+                      <Link
+                          className="text-blue-500 underline"
+                          href="/auth/signup"
+                      >
+                         Sign up
+                      </Link>
+                   </div>
+                </div>
+             </form>
           </div>
        </div>
    );
