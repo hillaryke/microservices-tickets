@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 const OrdersIndex = ({ orders }) => {
    return (
        <div className="flex justify-center">
@@ -8,7 +6,7 @@ const OrdersIndex = ({ orders }) => {
                 <div className="sm:flex-auto">
                    <h1 className="text-xl font-semibold text-gray-900">Tickets</h1>
                    <p className="mt-2 text-sm text-gray-700">
-                      A list of all the tickets available
+                      A list of all your orders
                    </p>
                 </div>
              </div>
@@ -29,7 +27,7 @@ const OrdersIndex = ({ orders }) => {
                    </thead>
                    <tbody className="divide-y divide-gray-200 bg-white">
                    {orders.map((order) => (
-                       <tr key={order.ticket.title}>
+                       <tr key={order.id}>
                           <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                              {order.ticket.title}
                           </td>
