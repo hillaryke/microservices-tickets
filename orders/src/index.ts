@@ -46,7 +46,7 @@ const start = async () => {
          useNewUrlParser: true,
          useUnifiedTopology: true
       });
-      console.log('🌱 MongoDB Connected...');
+      console.log('🌱 MongoDB Connected....');
 
 
    } catch (err) {
@@ -54,7 +54,7 @@ const start = async () => {
    }
 
    app.listen(3000, () => {
-      console.log('🧬 Listening on port 3000');
+      console.log('🧬 Listening on port 3000...');
    });
 };
 
