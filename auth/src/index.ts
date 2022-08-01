@@ -16,7 +16,7 @@ const start = async () => {
          useNewUrlParser: true,
          useUnifiedTopology: true
       });
-      console.log('🌱 MongoDB Connected...');
+      console.log('🌱 MongoDB Connected....');
    } catch (err) {
       console.error(err);
    }
