@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const OrderShow = ({ order }) => {
-   const [timeLeft, setTimeLeft] = useState('');
+   const [timeLeft, setTimeLeft] = useState(0);
 
    useEffect(() => {
       const findTimeLeft = () => {
@@ -9,6 +9,7 @@ const OrderShow = ({ order }) => {
          const secondsLeft = msLeft / 1000;
          setTimeLeft(Math.round(secondsLeft));
       };
+      const msLeft = new Date(order.expiresAt) - new Date();
 
       findTimeLeft();
       const timerId = setInterval(findTimeLeft, 1000);
@@ -18,7 +19,11 @@ const OrderShow = ({ order }) => {
       };
    }, []);
 
-   return <div>{timeLeft} remaining to pay</div>;
+   if (timeLeft <= 0) {
+      return <div>Order Expired</div>;
+   }
+
+   return <div>{timeLeft} seconds remaining to pay</div>;
 };
 
 OrderShow.getInitialProps = async (context, client) => {

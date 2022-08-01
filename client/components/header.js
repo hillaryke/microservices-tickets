@@ -24,7 +24,7 @@ export default ({ currentUser }) => {
        <div className="bg-gray-800 flex justify-center">
           <nav className="flex items-center justify-between px-6 py-4 max-w-screen-lg w-screen">
              <Link href="/">
-                <div className="flex items-center flex-shrink-0 text-white mr-6 pl-1.5">
+                <div className="flex items-center flex-shrink-0 text-white mr-6 pl-1.5 hover:cursor-pointer">
                    <span className="font-bold text-2xl">iTickets</span>
                 </div>
              </Link>
