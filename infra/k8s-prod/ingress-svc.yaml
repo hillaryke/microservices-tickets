@@ -50,7 +50,7 @@ spec:
                 port:
                   number: 3000
 
-    - host: auth.db
+    - host: authdb.hillaryke.live
       http:
         paths:
           - path: /
@@ -61,7 +61,7 @@ spec:
                 port:
                   number: 8081
 
-    - host: tickets.db
+    - host: ticketsdb.hillaryke.live
       http:
         paths:
           - path: /
@@ -72,7 +72,7 @@ spec:
                 port:
                   number: 8081
 
-    - host: orders.db
+    - host: ordersdb.hillaryke.live
       http:
         paths:
           - path: /
@@ -83,7 +83,7 @@ spec:
                 port:
                   number: 8081
 
-    - host: payments.db
+    - host: paymentsdb.hillaryke.live
       http:
         paths:
           - path: /
