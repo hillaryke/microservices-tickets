@@ -93,3 +93,4 @@ spec:
                 name: payments-mongo-express-svc
                 port:
                   number: 8081
+                  
