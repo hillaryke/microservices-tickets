@@ -20,8 +20,6 @@ router.post('/api/users/signin',
          .withMessage('Field must not be empty!')
    ], validateRequest,
    async (req: Request, res: Response) => {
-      console.log('Signin request');
-
       const { email, password } = req.body;
 
       const existingUser = await User.findOne({ email });
