@@ -2,10 +2,10 @@ name: deploy-auth
 
 on:
   push:
-    branches:
-      - [ "main" ]
     paths:
       - "auth/**"
+    branches:
+      - "main"
 
 jobs:
   deploy-auth:
