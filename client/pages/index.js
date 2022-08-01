@@ -9,7 +9,7 @@ const LandingPage = ({ tickets }) => {
                 <div className="sm:flex-auto">
                    <h1 className="text-xl font-semibold text-gray-900">Tickets</h1>
                    <p className="mt-2 text-sm text-gray-700">
-                      A list of all the tickets available
+                       A list of all the tickets available
                    </p>
                 </div>
              </div>
