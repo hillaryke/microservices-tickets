@@ -2,8 +2,8 @@ name: deploy-manifests
 
 on:
   push:
-    paths:
-      - "infra/**"
+#    paths:
+#      - "infra/**"
     branches:
       - "main"
 
@@ -23,4 +23,4 @@ jobs:
         run: doctl kubernetes cluster kubeconfig save itickets
 
       - name: Create deployments
-        run: kubectl apply -f infra/k8s
+        run: kubectl apply -f infra/k8s && kubectl apply -f infra/k8s-prod
