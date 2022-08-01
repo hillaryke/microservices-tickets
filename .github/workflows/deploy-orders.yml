@@ -33,6 +33,6 @@ jobs:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
       - name: Save DigitalOcean kubeconfig for kubernetes cluster
-        run: doctl kubernetes cluster kubeconfig save itickets
+        run: doctl kubernetes cluster kubeconfig save iticketing
 
       - run: kubectl rollout restart deployment orders-depl
