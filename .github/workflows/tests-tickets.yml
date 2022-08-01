@@ -5,10 +5,6 @@ on:
     branches: [ "main" ]
     paths:
       - "tickets/**"
-  push:
-    branches: [ "main" ]
-    paths:
-      - "tickets/**"
 
 jobs:
   test-tickets:
