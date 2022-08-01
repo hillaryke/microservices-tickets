@@ -17,7 +17,7 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
          throw new Error('Ticket not found');
       }
 
-      // Mark the ticket as not reserved by removing its orderId proprty
+      // Mark the ticket as not reserved by removing its orderId property
       ticket.set({ orderId: undefined });
 
       // Save the ticket

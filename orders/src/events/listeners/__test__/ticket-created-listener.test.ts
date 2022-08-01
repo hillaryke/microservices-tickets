@@ -46,6 +46,6 @@ it('acks the message', async () => {
    // call the onMessage fucntion with the data object + message object
    await listener.onMessage(data, msg);
 
-   // write assertions to make sure ack ack function is called
+   // write assertions to make sure ack function is called
    expect(msg.ack).toHaveBeenCalled();
 });

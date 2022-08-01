@@ -1,3 +1,5 @@
+// noinspection ES6MissingAwait
+
 import express, { Request, Response } from 'express';
 import { Order, OrderStatus } from "../models/order";
 import { NotAuthorizedError, NotFoundError, requireAuth } from "@itickets/common";
@@ -21,7 +23,7 @@ router.delete('/api/orders/:orderId', requireAuth, async (req: Request, res: Res
    order.status = OrderStatus.Cancelled;
    await order.save();
 
-   // publising an event saying this was cancelled!
+   // publishing an event saying this was cancelled!
    new OrderCancelledPublisher(natsWrapper.client).publish({
       id: order.id,
       version: order.version,

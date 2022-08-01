@@ -36,7 +36,7 @@ router.post('/api/orders',
          throw new BadRequestError('Ticket is already reserved!');
       }
 
-      // Calculate an expirating time/date for this order
+      // Calculate an expiration time/date for this order
       const expiration = new Date();
       expiration.setSeconds(expiration.getSeconds() + EXPIRATION_WINDOW_SECONDS);
 

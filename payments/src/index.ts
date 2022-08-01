@@ -14,7 +14,7 @@ const start = async () => {
       throw new Error('MONGO_URI must be defined');
    }
    if (!process.env.NATS_CLIENT_ID) {
-      throw new Error('NATS_CLENT_ID must be defined');
+      throw new Error('NATS_CLIENT_ID must be defined');
    }
    if (!process.env.NATS_URL) {
       throw new Error('NATS_URL must be defined');

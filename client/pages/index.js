@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const LandingPage = ({ currentUser, tickets }) => {
+const LandingPage = ({ tickets }) => {
 
    return (
        <div className="flex justify-center">
@@ -54,7 +54,7 @@ const LandingPage = ({ currentUser, tickets }) => {
    );
 };
 
-LandingPage.getInitialProps = async (context, client, currentUser) => {
+LandingPage.getInitialProps = async (context, client) => {
    const { data } = await client.get('/api/tickets');
    return { tickets: data };
 };

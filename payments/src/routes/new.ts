@@ -38,7 +38,7 @@ router.post('/api/payments',
          throw new NotFoundError();
       }
 
-      // check if user requesting payment matches the user assocaited with order
+      // check if user requesting payment matches the user associated with order
       if (order.userId !== req.currentUser!.id) {
          throw new NotAuthorizedError();
       }
