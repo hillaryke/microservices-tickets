@@ -1,4 +1,4 @@
-name: tests
+name: test auth
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  test:
+  test-auth:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code or latest repo
