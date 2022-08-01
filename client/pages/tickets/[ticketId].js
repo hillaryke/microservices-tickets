@@ -40,7 +40,7 @@ const TicketShow = ({ ticket }) => {
                    <div>
                       <div className="rounded-lg flex justify-center">
                          <button
-                             onClick={doRequest}
+                             onClick={() => doRequest()}
                              className="block w-11/12 md:w-full text-center rounded-lg border border-transparent bg-indigo-600 px-6 py-3 text-lg leading-4 font-medium text-white hover:bg-indigo-700"
                              aria-describedby="tier-hobby"
                          >Purchase
