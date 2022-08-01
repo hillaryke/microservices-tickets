@@ -3,8 +3,12 @@ name: test auth
 on:
   pull_request:
     branches: [ "main" ]
+    paths:
+      - "auth/**"
   push:
     branches: [ "main" ]
+    paths:
+      - "auth/**"
 
 jobs:
   test-auth:
