@@ -1,13 +1,12 @@
 import '../dist/style.css';
-import 'bootstrap/dist/css/bootstrap.css';
 import builClient from '../api/build-client';
 import Header from '../components/header';
 
 const AppComponent = ({ Component, pageProps, currentUser }) => {
    return (
-       <div>
+       <div className="flex flex-col">
           <Header currentUser={currentUser}/>
-          <Component {...pageProps}/>
+          <Component currentUser={currentUser} {...pageProps}/>
        </div>
    );
 
@@ -19,7 +18,7 @@ AppComponent.getInitialProps = async (appContext) => {
 
    let pageProps;
    if (appContext.Component.getInitialProps) {
-      pageProps = await appContext.Component.getInitialProps(appContext.ctx);
+      pageProps = await appContext.Component.getInitialProps(appContext.ctx, client, data.currentUser);
    }
 
    return {

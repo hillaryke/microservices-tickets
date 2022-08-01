@@ -2,30 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    background: #007bff;
-    background: linear-gradient(to right, #0062E6, #33AEFF);
+@font-face {
+   font-family: "Lato";
+   src: url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
 }
 
-.card-img-left {
-    width: 45%;
-    /* Link to your background image using in the property below! */
-    background: scroll center url('./background-mount.jpeg');
-    background-size: cover;
-}
-
-.btn-login {
-    font-size: 0.9rem;
-    letter-spacing: 0.05rem;
-    padding: 0.75rem 1rem;
-}
-
-.btn-google {
-    color: white !important;
-    background-color: #ea4335;
-}
-
-.btn-facebook {
-    color: white !important;
-    background-color: #3b5998;
+@font-face {
+   font-family: Montserrat;
+   src: url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
 }

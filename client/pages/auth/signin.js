@@ -6,7 +6,7 @@ import Link from "next/link";
 const SignUp = () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
-   const { doRequest, errors } = useRequest({
+   const { doRequest, displayFieldError } = useRequest({
       url: '/api/users/signin',
       method: 'post',
       body: {
@@ -21,56 +21,92 @@ const SignUp = () => {
       doRequest();
    };
 
+
    return (
-       <div className="container">
-          <div className="row">
-             <div className="col-lg-10 col-xl-9 mx-auto">
-                <div className="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
-                   <div className="card-img-left d-none d-md-flex">
+       <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+          <div className="sm:mx-auto sm:w-full sm:max-w-md">
+             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                Sign in to your account
+             </h2>
+          </div>
+
+          <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+             <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                <form onSubmit={onFormSubmit} className="space-y-6" action="#" method="POST">
+                   <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                         Email address
+                      </label>
+                      <div className="mt-1">
+                         <input
+                             value={email}
+                             onChange={e => setEmail(e.target.value)}
+                             id="email"
+                             name="email"
+                             type="email"
+                             autoComplete="email"
+                             required
+                             className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                         />
+                         {displayFieldError('email')}
+                      </div>
                    </div>
-                   <div className="card-body p-4 p-sm-5">
-                      <h5 className="card-title text-center mb-5 fw-normal fs-5">Sign In</h5>
 
-                      <form onSubmit={onFormSubmit}>
-                         <div className="form-floating mb-3">
-                            <input
-                                value={email}
-                                onChange={e => setEmail(e.target.value)}
-                                type="email"
-                                className="form-control"
-                                id="inputEmail"
-                                placeholder="name@example.com"
-                            />
-                            <label htmlFor="inputEmail">Email address</label>
-                         </div>
-
-                         <div className="form-floating mb-3">
-                            <input
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
-                                type="password"
-                                className="form-control"
-                                id="inputPassword"
-                                placeholder="Password"
-                            />
-                            <label htmlFor="inputPassword">Password</label>
-                         </div>
-
-                         {errors}
-
-                         <div className="d-grid mb-2">
-                            <button className="btn btn-lg btn-primary btn-login fw-bold text-uppercase"
-                                    type="submit">Sign in
-                            </button>
-                         </div>
-
-                         <Link href="/auth/signup">
-                            <a className="d-block text-center mt-2 small">Don't have an account? Sign Up</a>
-                         </Link>
-
-                      </form>
+                   <div>
+                      <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                         Password
+                      </label>
+                      <div className="mt-1">
+                         <input
+                             value={password}
+                             onChange={e => setPassword(e.target.value)}
+                             id="password"
+                             name="password"
+                             type="password"
+                             autoComplete="current-password"
+                             required
+                             className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                         />
+                         {displayFieldError('password')}
+                      </div>
                    </div>
-                </div>
+
+                   <div className="flex items-center justify-between">
+                      <div className="flex items-center">
+                         <input
+                             id="remember-me"
+                             name="remember-me"
+                             type="checkbox"
+                             className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                         />
+                         <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                            Remember me
+                         </label>
+                      </div>
+
+                      <div className="text-sm">
+                         <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                            Forgot your password?
+                         </a>
+                      </div>
+                   </div>
+
+                   <div>
+                      <button
+                          type="submit"
+                          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      >
+                         Sign in
+                      </button>
+                   </div>
+
+                   <div className="text-center text-sm text-gray-500">
+                      Don't have an account?{" "}
+                      <Link href="/auth/signup">
+                         <a className="text-blue-500 underline"> Sign up</a>
+                      </Link>
+                   </div>
+                </form>
              </div>
           </div>
        </div>
