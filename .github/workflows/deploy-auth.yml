@@ -35,5 +35,4 @@ jobs:
       - name: Save DigitalOcean kubeconfig for kubernetes cluster
         run: doctl kubernetes cluster kubeconfig save itickets
 
-      - name: Deploy auth to kubernetes
-        run: kubectl rollout restart deployment auth-depl
+      - run: kubectl rollout restart deployment auth-depl
