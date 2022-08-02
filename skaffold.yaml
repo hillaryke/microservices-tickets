@@ -3,8 +3,10 @@ kind: Config
 deploy:
   kubectl:
     manifests:
-      - ./infra/k8s/*
-      - ./infa/k8s-dev/*
+      #      - ./infra/k8s/*
+      #      - ./infra/k8s-dev/*
+      - ./infra/k8s-dev-test/*
+
 build:
   local:
     push: false
@@ -19,47 +21,59 @@ build:
           - src: 'src/**/*.ts'
             dest: .
 
-    - image: hilare/client
-      context: client
+    #    - image: hilare/client
+    #      context: client
+    #      docker:
+    #        dockerfile: Dockerfile.dev
+    #      sync:
+    #        manual:
+    #          - src: '**/*.js'
+    #            dest: .
+
+    - image: hilare/client-remix
+      context: client-remix
       docker:
         dockerfile: Dockerfile.dev
       sync:
         manual:
-          - src: '**/*.js'
+          - src: '**/*.tsx'
             dest: .
 
-    - image: hilare/tickets
-      context: tickets
-      docker:
-        dockerfile: Dockerfile.dev
-      sync:
-        manual:
           - src: '**/*.ts'
             dest: .
 
-    - image: hilare/orders
-      context: orders
-      docker:
-        dockerfile: Dockerfile.dev
-      sync:
-        manual:
-          - src: '**/*.ts'
-            dest: .
-
-    - image: hilare/expiration
-      context: expiration
-      docker:
-        dockerfile: Dockerfile.dev
-      sync:
-        manual:
-          - src: '**/*.ts'
-            dest: .
-
-    - image: hilare/payments
-      context: payments
-      docker:
-        dockerfile: Dockerfile.dev
-      sync:
-        manual:
-          - src: '**/*.ts'
-            dest: .
+#    - image: hilare/tickets
+#      context: tickets
+#      docker:
+#        dockerfile: Dockerfile.dev
+#      sync:
+#        manual:
+#          - src: '**/*.ts'
+#            dest: .
+#
+#    - image: hilare/orders
+#      context: orders
+#      docker:
+#        dockerfile: Dockerfile.dev
+#      sync:
+#        manual:
+#          - src: '**/*.ts'
+#            dest: .
+#
+#    - image: hilare/expiration
+#      context: expiration
+#      docker:
+#        dockerfile: Dockerfile.dev
+#      sync:
+#        manual:
+#          - src: '**/*.ts'
+#            dest: .
+#
+#    - image: hilare/payments
+#      context: payments
+#      docker:
+#        dockerfile: Dockerfile.dev
+#      sync:
+#        manual:
+#          - src: '**/*.ts'
+#            dest: .
