@@ -1,8 +1,9 @@
 import { Form, Link, useActionData } from "@remix-run/react";
-import { ActionFunction, json, redirect } from "@remix-run/node";
+import { ActionFunction, redirect } from "@remix-run/node";
 import invariant from "tiny-invariant";
 
 import { axiosConfig } from "~/api/axios-config";
+import doRequest from "~/utils/auth-session";
 
 interface ActionError {
    field?: string;
@@ -14,18 +15,13 @@ export const action: ActionFunction = async ({ request }) => {
    const email = formData.get("email");
    const password = formData.get("password");
 
-   let resData;
-   try {
-      const response = await axiosConfig(request).post("/api/users/signup", {
-         email, password
-      });
-      return redirect('/');
-   } catch (err: unknown) {
-      // @ts-ignore
-      resData = err.response.data.errors;
-   }
-
-   return { resData };
+   return doRequest({
+      request,
+      method: "post",
+      url: "/api/users/signup",
+      body: { email, password },
+      redirectTo: "/",
+   });
 };
 
 const displayErrors = (actionErrors: Array<ActionError>, field?: string) => {
@@ -70,7 +66,7 @@ export default function SignUp() {
                            autoComplete="email"
                            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
-                        {displayErrors(actionData?.resData, "email")}
+                        {displayErrors(actionData?.errors, "email")}
                      </div>
                   </div>
 
@@ -87,7 +83,7 @@ export default function SignUp() {
                            autoComplete="current-password"
                            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
-                        {displayErrors(actionData?.resData, "password")}
+                        {displayErrors(actionData?.errors, "password")}
                      </div>
                   </div>
 
@@ -99,7 +95,7 @@ export default function SignUp() {
                         Sign Up
                      </button>
                   </div>
-                  {displayErrors(actionData?.resData)}
+                  {displayErrors(actionData?.errors)}
 
                   <div className="text-center text-sm text-gray-500">
                      Already have an account?{" "}
