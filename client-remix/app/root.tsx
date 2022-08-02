@@ -5,11 +5,14 @@ import {
    Outlet,
    Scripts,
    ScrollRestoration,
+   useLoaderData,
+   useMatches,
 } from "@remix-run/react";
 import { axiosConfig } from "~/api/axios-config";
 
 import styles from "./styles/app.css";
 import { LoaderFunction } from "@remix-run/node";
+import Header from "~/components/header";
 
 export function links() {
    return [{ rel: "stylesheet", href: styles }];
@@ -17,7 +20,8 @@ export function links() {
 
 export const loader: LoaderFunction = async ({ request }) => {
    const { data } = await axiosConfig(request).get('/api/users/currentuser');
-   return { currentUser: data };
+   console.log(data);
+   return { currentUser: data.currentUser };
 };
 
 export const meta: MetaFunction = () => ({
@@ -27,6 +31,7 @@ export const meta: MetaFunction = () => ({
 });
 
 export default function App() {
+
    return (
       <html lang="en">
       <head>
@@ -34,6 +39,7 @@ export default function App() {
          <Links/>
       </head>
       <body>
+      <Header/>
       <Outlet/>
       <ScrollRestoration/>
       <Scripts/>
