@@ -6,12 +6,10 @@ import {
    Scripts,
    ScrollRestoration,
 } from "@remix-run/react";
-import { axiosConfig } from "~/routes/api/axios-config";
+import { axiosConfig } from "~/api/axios-config";
 
 import styles from "./styles/app.css";
 import { LoaderFunction } from "@remix-run/node";
-import https from "https";
-import axios from "axios";
 
 export function links() {
    return [{ rel: "stylesheet", href: styles }];
@@ -27,7 +25,6 @@ export const meta: MetaFunction = () => ({
    title: "New Remix App",
    viewport: "width=device-width,initial-scale=1",
 });
-
 
 export default function App() {
    return (
