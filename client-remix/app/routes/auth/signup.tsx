@@ -1,14 +1,8 @@
 import { Form, Link, useActionData } from "@remix-run/react";
-import { ActionFunction, redirect } from "@remix-run/node";
-import invariant from "tiny-invariant";
+import { ActionFunction } from "@remix-run/node";
 
-import { axiosConfig } from "~/api/axios-config";
 import doRequest from "~/utils/auth-session";
-
-interface ActionError {
-   field?: string;
-   message: string;
-}
+import { displayErrors } from "~/components/display-errors";
 
 export const action: ActionFunction = async ({ request }) => {
    const formData = await request.formData();
@@ -22,24 +16,6 @@ export const action: ActionFunction = async ({ request }) => {
       body: { email, password },
       redirectTo: "/",
    });
-};
-
-const displayErrors = (actionErrors: Array<ActionError>, field?: string) => {
-   if (field) {
-      const fieldError = actionErrors?.find((err: ActionError) => err.field === field);
-      return fieldError ?
-         <div className="pt-1 text-red-700" role="alert">{fieldError.message}</div> : null;
-   }
-
-   const customErrors = actionErrors?.map(err => {
-      return !err.field ? <li key={err.message}>{err.message}</li> : null;
-   });
-   return (
-      <div className="mt-1 text-red-700" role="alert">
-         <ul>{customErrors}</ul>
-      </div>
-   );
-
 };
 
 export default function SignUp() {
