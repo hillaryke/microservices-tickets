@@ -1,73 +1,43 @@
 import { Form, Link, useActionData } from "@remix-run/react";
 import { ActionFunction, redirect } from "@remix-run/node";
 
-import doRequest from "~/utils/auth-session";
 import { displayErrors } from "~/components/display-errors";
 import https from "https";
-import { ajax } from "rxjs/ajax";
 import axios from "axios";
 
 export const action: ActionFunction = async ({ request }) => {
    const formData = await request.formData();
    const email = formData.get("email");
    const password = formData.get("password");
+   const data = { email, password };
 
-   const contentType = request.headers.get('Content-Type') as string;
    const agent = new https.Agent({
       rejectUnauthorized: false
    });
 
-
    const options = {
+      baseURL: request.headers.get("Origin"),
       method: 'POST',
       body: JSON.stringify({ email, password }),
-      agent,
-      headers: {
-         'Accept': 'application/json',
-         'Content-Type': 'application/json',
-      }
+      httpsAgent: agent,
+      headers: request.headers
    };
-   // try {
-   fetch('https://ticketing.dev/api/users/signup', options).then(response => {
-      if (!response.ok) throw response;
 
-      // if (onSuccess) return onSuccess(response);
-      // if (redirectTo)
+   try {
+      // @ts-ignore
+      const res = await axios.post(`/api/users/signup`, data, options);
       return redirect("/", {
-         headers: response.headers
+         headers: res.headers
       });
-   }).catch(err => {
-      console.log(err);
-   }).then(err => {
-      console.log(err);
-   });
-   // } catch (err) {
-   //    console.log(err)
-   //    return null
-   // }
 
-   // const options = {
-   //    method: 'POST',
-   //    body: JSON.stringify({ email, password }),
-   //    agent,
-   //    headers: {
-   //       'Accept': 'application/json',
-   //       'Content-Type': 'application/json',
-   //    }
-   // }
-   // try {
-   //    const res = await axios.post('https://ticketing.dev/api/users/signup',
-   //       { email, password },
-   //       options
-   //    );
-   //    return redirect("/" , {
-   //       headers: res.headers
-   //    });
-   //
-   // } catch (err) {
-   //    return err.response.data;
-   // }
-   return null;
+   } catch (err) {
+      // @ts-ignore
+      const errors = err.response?.data.errors;
+      if (errors) return { errors };
+      // @ts-ignore
+      console.log("Unexpected error:", err.message);
+      return null;
+   }
 };
 
 export default function SignUp() {
