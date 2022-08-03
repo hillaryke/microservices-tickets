@@ -1,6 +1,5 @@
 import type { ActionFunction } from "@remix-run/node";
-
-import doRequest from "~/utils/auth-session";
+import doRequest from "~/utils/do-request";
 
 export const action: ActionFunction = ({ request }) => {
    return doRequest({
