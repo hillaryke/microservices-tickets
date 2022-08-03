@@ -10,7 +10,7 @@ import {
 
 import { getUser } from "~/utils/get-user";
 import styles from "./styles/app.css";
-import Header from "~/components/header";
+import Header from "~/components/Header";
 
 export function links() {
    return [{ rel: "stylesheet", href: styles }];
