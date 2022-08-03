@@ -1,7 +1,6 @@
 import { Form, Link, useActionData } from "@remix-run/react";
 import type { ActionFunction, LoaderFunction, } from "@remix-run/node";
 
-import doRequest from "~/utils/auth-session";
 import { displayErrors } from "~/components/display-errors";
 
 interface ActionError {
@@ -14,13 +13,14 @@ export const action: ActionFunction = async ({ request }) => {
    const email = formData.get("email");
    const password = formData.get("password");
 
-   return doRequest({
-      request,
-      method: "post",
-      url: "/api/users/signin",
-      body: { email, password },
-      redirectTo: "/",
-   });
+   // return doRequest({
+   //    request,
+   //    method: "post",
+   //    url: "/api/users/signin",
+   //    body: { email, password },
+   //    redirectTo: "/",
+   // });
+   return {};
 }
 
 const SignUp = () => {

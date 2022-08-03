@@ -1,24 +1,7 @@
 import { Link, useLoaderData, useMatches } from "@remix-run/react";
-// import type { LoaderFunction } from "@remix-run/node";
-//
-// export const loader: LoaderFunction = async ({ request }) => {
-//    const contentType = request.headers.get('Content-Type') as string;
-//
-//    const res = await axiosConfig(request).get('/api/users/currentuser', {
-//       headers: {
-//          'Content-Type': contentType
-//       }
-//    });
-//    console.log(request)
-//    console.log(res.data);
-//
-//    return { currentUser: res.data.currentUser };
-// };
 
 export default () => {
    const { currentUser } = useLoaderData();
-   // console.log("HEADERCOMP", currentUser);
-
 
    const links = [
       !currentUser && { label: 'Sign Up', to: '/auth/signup', isActionRoute: false },
@@ -33,9 +16,11 @@ export default () => {
    const renderLink = (label: string, to: string, isActionRoute: boolean = false) => {
       if (isActionRoute) {
          return (
-            <form action={to} method="post" className="inline-block">
-               <button type="submit" className={linkClassName}>{label}</button>
-            </form>
+            <div className="inline-block" key={to}>
+               <form action={to} method="post">
+                  <button type="submit" className={linkClassName}>{label}</button>
+               </form>
+            </div>
          );
       } else {
          return (
