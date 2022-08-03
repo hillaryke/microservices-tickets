@@ -1,21 +1,73 @@
 import { Form, Link, useActionData } from "@remix-run/react";
-import { ActionFunction } from "@remix-run/node";
+import { ActionFunction, redirect } from "@remix-run/node";
 
 import doRequest from "~/utils/auth-session";
 import { displayErrors } from "~/components/display-errors";
+import https from "https";
+import { ajax } from "rxjs/ajax";
+import axios from "axios";
 
 export const action: ActionFunction = async ({ request }) => {
    const formData = await request.formData();
    const email = formData.get("email");
    const password = formData.get("password");
 
-   return doRequest({
-      request,
-      method: "post",
-      url: "/api/users/signup",
-      body: { email, password },
-      redirectTo: "/",
+   const contentType = request.headers.get('Content-Type') as string;
+   const agent = new https.Agent({
+      rejectUnauthorized: false
    });
+
+
+   const options = {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+      agent,
+      headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
+      }
+   };
+   // try {
+   fetch('https://ticketing.dev/api/users/signup', options).then(response => {
+      if (!response.ok) throw response;
+
+      // if (onSuccess) return onSuccess(response);
+      // if (redirectTo)
+      return redirect("/", {
+         headers: response.headers
+      });
+   }).catch(err => {
+      console.log(err);
+   }).then(err => {
+      console.log(err);
+   });
+   // } catch (err) {
+   //    console.log(err)
+   //    return null
+   // }
+
+   // const options = {
+   //    method: 'POST',
+   //    body: JSON.stringify({ email, password }),
+   //    agent,
+   //    headers: {
+   //       'Accept': 'application/json',
+   //       'Content-Type': 'application/json',
+   //    }
+   // }
+   // try {
+   //    const res = await axios.post('https://ticketing.dev/api/users/signup',
+   //       { email, password },
+   //       options
+   //    );
+   //    return redirect("/" , {
+   //       headers: res.headers
+   //    });
+   //
+   // } catch (err) {
+   //    return err.response.data;
+   // }
+   return null;
 };
 
 export default function SignUp() {
