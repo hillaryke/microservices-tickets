@@ -1,26 +1,21 @@
 import { Form, Link, useActionData } from "@remix-run/react";
-import type { ActionFunction, LoaderFunction, } from "@remix-run/node";
+import type { ActionFunction } from "@remix-run/node";
 
 import { displayErrors } from "~/components/display-errors";
-
-interface ActionError {
-   field?: string;
-   message: string;
-}
+import doRequest from "~/utils/do-request";
 
 export const action: ActionFunction = async ({ request }) => {
    const formData = await request.formData();
    const email = formData.get("email");
    const password = formData.get("password");
 
-   // return doRequest({
-   //    request,
-   //    method: "post",
-   //    url: "/api/users/signin",
-   //    body: { email, password },
-   //    redirectTo: "/",
-   // });
-   return {};
+   return doRequest({
+      request,
+      method: "post",
+      url: "/api/users/signin",
+      body: { email, password },
+      redirectTo: "/",
+   });
 }
 
 const SignUp = () => {
