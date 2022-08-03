@@ -3,7 +3,7 @@ kind: Config
 deploy:
   kubectl:
     manifests:
-      #      - ./infra/k8s/*
+#      - ./infra/k8s/*
       #      - ./infra/k8s-dev/*
       - ./infra/k8s-dev-test/*
 
@@ -42,6 +42,9 @@ build:
           - src: '**/*.ts'
             dest: .
 
+          - src: '.cache'
+            dest: .
+#
 #    - image: hilare/tickets
 #      context: tickets
 #      docker:
