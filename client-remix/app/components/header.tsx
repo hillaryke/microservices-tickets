@@ -1,9 +1,24 @@
-import { Link, useMatches } from "@remix-run/react";
+import { Link, useLoaderData, useMatches } from "@remix-run/react";
+// import type { LoaderFunction } from "@remix-run/node";
+//
+// export const loader: LoaderFunction = async ({ request }) => {
+//    const contentType = request.headers.get('Content-Type') as string;
+//
+//    const res = await axiosConfig(request).get('/api/users/currentuser', {
+//       headers: {
+//          'Content-Type': contentType
+//       }
+//    });
+//    console.log(request)
+//    console.log(res.data);
+//
+//    return { currentUser: res.data.currentUser };
+// };
 
 export default () => {
-   const matches = useMatches();
-   const matchRoot = matches.find((match) => match.pathname === '/');
-   const currentUser = matchRoot?.data?.currentUser;
+   const { currentUser } = useLoaderData();
+   // console.log("HEADERCOMP", currentUser);
+
 
    const links = [
       !currentUser && { label: 'Sign Up', to: '/auth/signup', isActionRoute: false },
@@ -18,7 +33,7 @@ export default () => {
    const renderLink = (label: string, to: string, isActionRoute: boolean = false) => {
       if (isActionRoute) {
          return (
-            <form action={to} method="post">
+            <form action={to} method="post" className="inline-block">
                <button type="submit" className={linkClassName}>{label}</button>
             </form>
          );
@@ -32,11 +47,9 @@ export default () => {
    };
 
    const displayLinks = links.filter(linkConfig => linkConfig)
-      .map(({ label, to, isActionRoute}) => {
+      .map(({ label, to, isActionRoute }) => {
          return renderLink(label, to, isActionRoute);
       });
-
-   console.log(links);
 
    return (
       <div className="bg-gray-800 flex justify-center">
