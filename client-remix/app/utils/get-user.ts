@@ -9,7 +9,7 @@ export async function getUser(request: any) {
          rejectUnauthorized: false,
       }),
       headers: {
-         'Cookies': request.headers.get('Cookies') as string,
+         'Cookie': request.headers.get('Cookie') as string,
       },
    });
 
