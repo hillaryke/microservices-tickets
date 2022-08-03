@@ -1,17 +1,15 @@
 import type { MetaFunction } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/node";
 import {
    Links,
    Meta,
    Outlet,
    Scripts,
    ScrollRestoration,
-   useLoaderData,
-   useMatches,
 } from "@remix-run/react";
-import { axiosConfig } from "~/api/axios-config";
 
+import { getUser } from "~/utils/get-user";
 import styles from "./styles/app.css";
-import { LoaderFunction } from "@remix-run/node";
 import Header from "~/components/header";
 
 export function links() {
@@ -19,9 +17,11 @@ export function links() {
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-   const { data } = await axiosConfig(request).get('/api/users/currentuser');
-   console.log(data);
-   return { currentUser: data.currentUser };
+   const currentUser = await getUser(request);
+
+   console.log("USER IS: ", currentUser);
+
+   return { currentUser };
 };
 
 export const meta: MetaFunction = () => ({
@@ -31,7 +31,6 @@ export const meta: MetaFunction = () => ({
 });
 
 export default function App() {
-
    return (
       <html lang="en">
       <head>
