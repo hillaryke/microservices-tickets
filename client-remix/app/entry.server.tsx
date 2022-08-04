@@ -2,6 +2,12 @@ import type { EntryContext } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import { renderToString } from "react-dom/server";
 
+import dotenv from "dotenv";
+dotenv.config();
+
+// TODO remove when in production
+process.removeAllListeners('warning')
+
 export default function handleRequest(
    request: Request,
    responseStatusCode: number,

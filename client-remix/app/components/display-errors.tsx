@@ -18,5 +18,4 @@ export const displayErrors = (actionErrors: Array<ActionError>, field?: string) 
          <ul>{customErrors}</ul>
       </div>
    );
-
 };

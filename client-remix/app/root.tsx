@@ -8,20 +8,23 @@ import {
    ScrollRestoration,
 } from "@remix-run/react";
 
-import { getUser } from "~/utils/get-user";
 import styles from "./styles/app.css";
 import Header from "~/components/Header";
+import axios from "axios";
 
 export function links() {
    return [{ rel: "stylesheet", href: styles }];
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-   const currentUser = await getUser(request);
+   const res = await axios.get(`${process.env.HOST_URL}/api/users/currentuser`, {
+      headers: {
+         "cookie": request.headers.get("cookie") as string,
+      }
+   });
+   const currentUser = res.data.currentUser
 
-   console.log("USER IS: ", currentUser);
-
-   return { currentUser };
+   return { currentUser }
 };
 
 export const meta: MetaFunction = () => ({

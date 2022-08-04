@@ -1,20 +1,9 @@
 import { Form, Link, useActionData } from "@remix-run/react";
-import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
+import { ActionFunction, json, redirect } from "@remix-run/node";
 
 import { displayErrors } from "~/components/display-errors";
 import https from "https";
 import axios from "axios";
-import { getUser } from "~/utils/get-user";
-import { axiosInstance } from "~/configs/axios-instance";
-import doRequest from "~/utils/do-request";
-
-export const loader: LoaderFunction = async ({ request }) => {
-   const user = await getUser(request);
-   console.log("USER IS: ", user);
-   //
-   // return { currentUser: res.data.currentUser };
-   return {};
-};
 
 export const action: ActionFunction = async ({ request }) => {
    const formData = await request.formData();
@@ -22,17 +11,32 @@ export const action: ActionFunction = async ({ request }) => {
    const password = formData.get("password");
    const body = { email, password };
 
-   const agent = new https.Agent({
-      rejectUnauthorized: false
-   });
+   const cookies = request.headers.get("cookie") as string;
 
-   return await doRequest({
-      method: 'post',
-      redirectTo: '/',
-      body,
-      url: '/api/users/signup',
-      request
-   });
+   try {
+      const response = await axios.post(`${process.env.HOST_URL}/api/users/signup`,
+         body,
+         {
+            httpsAgent: new https.Agent({
+               rejectUnauthorized: false,
+            }),
+            headers: {
+               'Content-Type': 'application/json',
+               'cookie': cookies
+            }
+         });
+      return json(response.data, {
+         headers: response.headers
+      })
+   } catch (err) {
+      // console.log(err)
+      // @ts-ignore
+      const errors = err.response?.data.errors;
+      if (errors) return { errors };
+      // @ts-ignore
+      console.log("Unexpected error:", err.message);
+      return null;
+   }
 };
 
 export default function SignUp() {
