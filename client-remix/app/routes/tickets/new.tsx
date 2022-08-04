@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Form, useActionData } from "@remix-run/react";
 import { displayErrors } from "~/components/display-errors";
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
-import { redirect } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import axios from "axios";
-// import { reqAgent } from "~/configs/axios-instance";
+import * as util from "util";
 
 export const action: ActionFunction = async ({ request }) => {
    const formData = await request.formData();
@@ -13,21 +13,13 @@ export const action: ActionFunction = async ({ request }) => {
    const body = { title, price };
 
    try {
-      // @ts-ignore
-      const res = await axios.post('https://ticketing.dev/api/tickets', body, {
-         // @ts-ignore
-         headers: request.headers
-         // {
-         // 'cookie': request.headers.get("cookie") as string,
-         // "Access-Control-Allow-Origin": "*",
-         // 'Content-Type': 'application/json;charset=UTF-8',
-         // 'Cache-Control': 'private, max-age=60',
-         // 'Access-Control-Allow-Credentials': 'true'
-         // }
+      const res = await axios.post(`${process.env.HOST_URL}/api/tickets`, body, {
+         headers: {
+            'cookie': request.headers.get("cookie") as string,
+         }
       });
 
       return redirect("/");
-
    } catch (err) {
       // @ts-ignore
       const errors = err.response?.data.errors;
@@ -40,7 +32,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function NewTicket() {
    const actionData = useActionData();
-   console.log(actionData);
+   console.log("actionData: ", actionData);
 
    const [price, setPrice] = useState('');
 
@@ -68,6 +60,7 @@ export default function NewTicket() {
                         id="title"
                         autoFocus={true}
                         type="text"
+                        name="title"
                         className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
                      />
                      {displayErrors(actionData?.errors, "title")}
@@ -84,6 +77,7 @@ export default function NewTicket() {
                         onChange={e => setPrice(e.target.value)}
                         onBlur={onBlur}
                         id="price"
+                        name="price"
                         className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
                      />
                      {displayErrors(actionData?.errors, "price")}

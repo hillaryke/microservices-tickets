@@ -42,6 +42,9 @@ build:
           - src: '**/*.ts'
             dest: .
 
+          - src: '**/*.js'
+            dest: .
+
           - src: '.cache'
             dest: .
 #
