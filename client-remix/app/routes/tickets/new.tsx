@@ -4,6 +4,7 @@ import { displayErrors } from "~/components/display-errors";
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import axios from "axios";
+import { doRequest } from "~/utils/do-request";
 
 export const action: ActionFunction = async ({ request }) => {
    const formData = await request.formData();
@@ -11,23 +12,13 @@ export const action: ActionFunction = async ({ request }) => {
    const price = formData.get("price");
    const body = { title, price };
 
-   try {
-      const res = await axios.post(`${process.env.HOST_URL}/api/tickets`, body, {
-         headers: {
-            'cookie': request.headers.get("cookie") as string,
-         }
-      });
-      console.log(res);
-
-      return redirect("/");
-   } catch (err) {
-      // @ts-ignore
-      const errors = err.response?.data.errors;
-      if (errors) return { errors };
-      // @ts-ignore
-      console.log("Unexpected error:", err.message);
-      return null;
-   }
+   return doRequest({
+      request,
+      method: 'post',
+      url: '/api/tickets',
+      body,
+      redirectTo: '/'
+   });
 };
 
 export default function NewTicket() {

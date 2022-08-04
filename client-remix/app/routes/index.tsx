@@ -1,3 +1,10 @@
+import type { LoaderFunction } from "@remix-run/node";
+
+export const loader: LoaderFunction = ({ request }) => {
+   // fetch tickets
+   return {};
+};
+
 export default function IndexRoute() {
    return (
       <div className="flex justify-center">
