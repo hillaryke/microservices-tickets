@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { Form, useActionData } from "@remix-run/react";
 import { displayErrors } from "~/components/display-errors";
-import type { ActionFunction, LoaderFunction } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
-import axios from "axios";
+import type { ActionFunction } from "@remix-run/node";
 import { doRequest } from "~/utils/do-request";
 
 export const action: ActionFunction = async ({ request }) => {
@@ -23,7 +21,6 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function NewTicket() {
    const actionData = useActionData();
-   console.log("actionData: ", actionData);
 
    const [price, setPrice] = useState('');
 

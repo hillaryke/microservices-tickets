@@ -1,8 +1,7 @@
 import { Form, Link, useActionData } from "@remix-run/react";
-import { ActionFunction, json, redirect } from "@remix-run/node";
+import { ActionFunction } from "@remix-run/node";
 
 import { displayErrors } from "~/components/display-errors";
-import axios from "axios";
 import { doRequest } from "~/utils/do-request";
 
 export const action: ActionFunction = async ({ request }) => {

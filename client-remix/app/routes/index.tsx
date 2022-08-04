@@ -1,11 +1,30 @@
 import type { LoaderFunction } from "@remix-run/node";
+import { Link, useLoaderData } from "@remix-run/react";
+import axios from "axios";
 
-export const loader: LoaderFunction = ({ request }) => {
+interface Ticket {
+   id: string;
+   title: string;
+   price: number;
+   userId: string;
+   version: number;
+   orderId?: string;
+}
+
+export const loader: LoaderFunction = async () => {
    // fetch tickets
-   return {};
+   try {
+      const res = await axios.get(`${process.env.HOST_URL}/api/tickets`);
+      return res.data;
+   } catch (err) {
+      console.log(err);
+      return null;
+   }
 };
 
 export default function IndexRoute() {
+   const tickets = useLoaderData();
+
    return (
       <div className="flex justify-center">
          <div className="px-4 sm:px-6 lg:px-8 my-8 max-w-screen-lg w-screen">
@@ -35,21 +54,19 @@ export default function IndexRoute() {
                   </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 bg-white">
-                  {/*{tickets.map((ticket) => (*/}
-                  {/*    <tr key={ticket.title}>*/}
-                  {/*       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">*/}
-                  {/*          {ticket.title}*/}
-                  {/*       </td>*/}
-                  {/*       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ticket.price}</td>*/}
-                  {/*       <td className="whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">*/}
-                  {/*          <Link href="/tickets/[ticketId]" as={`/tickets/${ticket.id}`}>*/}
-                  {/*             <a className="text-indigo-600 hover:text-indigo-900">*/}
-                  {/*                View<span className="sr-only">, {ticket.title}</span>*/}
-                  {/*             </a>*/}
-                  {/*          </Link>*/}
-                  {/*       </td>*/}
-                  {/*    </tr>*/}
-                  {/*))}*/}
+                  {tickets.map((ticket: Ticket) => (
+                     <tr key={ticket.title}>
+                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                           {ticket.title}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ticket.price}</td>
+                        <td className="whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
+                           <Link to={`/tickets/${ticket.id}`} className="text-indigo-600 hover:text-indigo-900">
+                              View<span className="sr-only">, {ticket.title}</span>
+                           </Link>
+                        </td>
+                     </tr>
+                  ))}
                   </tbody>
                </table>
             </div>
