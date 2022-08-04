@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-remixx-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client-remixx
+  template:
+    metadata:
+      labels:
+        app: client-remixx
+    spec:
+      containers:
+        - name: client-remixx
+          image: hilare/client-remixx
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-remixx-svc
+spec:
+  selector:
+    app: client-remixx
+  ports:
+    - name: client-remixx
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
