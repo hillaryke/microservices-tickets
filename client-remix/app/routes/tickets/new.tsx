@@ -4,7 +4,6 @@ import { displayErrors } from "~/components/display-errors";
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import axios from "axios";
-import * as util from "util";
 
 export const action: ActionFunction = async ({ request }) => {
    const formData = await request.formData();
@@ -18,6 +17,7 @@ export const action: ActionFunction = async ({ request }) => {
             'cookie': request.headers.get("cookie") as string,
          }
       });
+      console.log(res);
 
       return redirect("/");
    } catch (err) {

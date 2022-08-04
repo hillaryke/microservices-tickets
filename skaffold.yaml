@@ -47,39 +47,39 @@ build:
 
           - src: '.cache'
             dest: .
-#
-#    - image: hilare/tickets
-#      context: tickets
-#      docker:
-#        dockerfile: Dockerfile.dev
-#      sync:
-#        manual:
-#          - src: '**/*.ts'
-#            dest: .
-#
-#    - image: hilare/orders
-#      context: orders
-#      docker:
-#        dockerfile: Dockerfile.dev
-#      sync:
-#        manual:
-#          - src: '**/*.ts'
-#            dest: .
-#
-#    - image: hilare/expiration
-#      context: expiration
-#      docker:
-#        dockerfile: Dockerfile.dev
-#      sync:
-#        manual:
-#          - src: '**/*.ts'
-#            dest: .
-#
-#    - image: hilare/payments
-#      context: payments
-#      docker:
-#        dockerfile: Dockerfile.dev
-#      sync:
-#        manual:
-#          - src: '**/*.ts'
-#            dest: .
+
+    - image: hilare/tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: '**/*.ts'
+            dest: .
+
+    - image: hilare/orders
+      context: orders
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: '**/*.ts'
+            dest: .
+
+    - image: hilare/expiration
+      context: expiration
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: '**/*.ts'
+            dest: .
+
+    - image: hilare/payments
+      context: payments
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: '**/*.ts'
+            dest: .
