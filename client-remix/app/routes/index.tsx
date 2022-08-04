@@ -15,7 +15,7 @@ export const loader: LoaderFunction = async () => {
    // fetch tickets
    try {
       const res = await axios.get(`${process.env.HOST_URL}/api/tickets`);
-      return res.data;
+      return { tickets: res.data };
    } catch (err) {
       console.log(err);
       return null;
@@ -23,7 +23,7 @@ export const loader: LoaderFunction = async () => {
 };
 
 export default function IndexRoute() {
-   const tickets = useLoaderData();
+   const { tickets } = useLoaderData();
 
    return (
       <div className="flex justify-center">

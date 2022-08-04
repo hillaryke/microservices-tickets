@@ -11,7 +11,7 @@ interface RequestArgs {
 }
 
 export async function doRequest(args: RequestArgs) {
-   const { url, method, body, request, redirectTo } = args;
+   const { url, method, body, request, redirectTo, onSuccess } = args;
 
    const cookies = request.headers.get("cookie") as string;
 
@@ -23,6 +23,9 @@ export async function doRequest(args: RequestArgs) {
          });
       if (redirectTo) {
          return redirect(redirectTo, { headers: response.headers });
+      }
+      if (onSuccess) {
+         return onSuccess(response.data);
       }
    } catch (err) {
       // console.log(err)
