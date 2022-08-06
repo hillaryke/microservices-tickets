@@ -10,7 +10,7 @@ stan.on('connect', () => {
    console.log('Listener connected to NATS');
 
    stan.on('close', () => {
-      console.log('NATS connection closed');
+      console.log('NATS connection closed!');
       process.exit();
    });
 
