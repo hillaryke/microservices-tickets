@@ -16,14 +16,17 @@ export const loader: LoaderFunction = async () => {
    // fetch tickets
 
    try {
-      const client = axios.create({
-         timeout: 60000,
-         maxContentLength: 500 * 1000 * 1000,
-         httpsAgent: new https.Agent({ keepAlive: true }),
-      });
-      const res = await client.get(`${process.env.HOST_URL}/api/tickets`);
+      // const client = axios.create({
+      //    timeout: 60000,
+      //    maxContentLength: 500 * 1000 * 1000,
+      //    httpsAgent: new https.Agent({ keepAlive: true }),
+      // });
+      // const res = await client.get(`${process.env.HOST_URL}/api/tickets`);
 
-      return { tickets: res.data };
+      const res = await fetch(`${process.env.HOST_URL}/api/tickets`);
+      const tickets = await res.json();
+
+      return { tickets };
    } catch (err) {
       console.log(err);
       return null;
