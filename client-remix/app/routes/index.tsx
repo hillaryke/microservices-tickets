@@ -1,6 +1,7 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import axios from "axios";
+import https from "https";
 
 export interface Ticket {
    id: string;
@@ -14,7 +15,13 @@ export interface Ticket {
 export const loader: LoaderFunction = async () => {
    // fetch tickets
    try {
-      const res = await axios.get(`${process.env.HOST_URL}/api/tickets`);
+      const client = axios.create({
+         timeout: 60000,
+         maxContentLength: 500 * 1000 * 1000,
+         httpsAgent: new https.Agent({ keepAlive: true }),
+      });
+      const res = await client.get(`${process.env.HOST_URL}/api/tickets`);
+
       return { tickets: res.data };
    } catch (err) {
       console.log(err);
