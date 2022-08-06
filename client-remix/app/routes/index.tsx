@@ -2,7 +2,7 @@ import type { LoaderFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import axios from "axios";
 
-interface Ticket {
+export interface Ticket {
    id: string;
    title: string;
    price: number;

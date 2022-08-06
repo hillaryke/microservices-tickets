@@ -29,7 +29,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export const meta: MetaFunction = () => ({
    charset: "utf-8",
-   title: "New Remix App",
+   title: "🎯 iTickets",
    viewport: "width=device-width,initial-scale=1",
 });
 
