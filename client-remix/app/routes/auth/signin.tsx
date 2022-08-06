@@ -3,6 +3,13 @@ import { Form, Link, useActionData } from "@remix-run/react";
 
 import { displayErrors } from "~/components/display-errors";
 import { doRequest } from "~/utils/do-request";
+import { MetaFunction } from "@remix-run/node";
+
+export const meta: MetaFunction = () => ({
+   charset: "utf-8",
+   title: "🎯 Sigin",
+   viewport: "width=device-width,initial-scale=1",
+});
 
 export const action: ActionFunction = async ({ request }) => {
    const formData = await request.formData();
