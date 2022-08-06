@@ -15,10 +15,10 @@ jobs:
         uses: actions/checkout@v3
 
       - name: create env file
-          run: |
-            cd client-remix
-            touch .env
-            echo HOST_URL=${{ secrets.HOST_URL }} >> .env
+        run: |
+          cd client-remix
+          touch .env
+          echo HOST_URL=${{ secrets.HOST_URL }} >> .env
 
       - name: docker login
         env:
