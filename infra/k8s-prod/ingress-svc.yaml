@@ -46,7 +46,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: client-svc
+                name: client-remix-svc
                 port:
                   number: 3000
 
