@@ -4,7 +4,9 @@ deploy:
   kubectl:
     manifests:
       - ./infra/k8s/*
-      - ./infa/k8s-dev/*
+      - ./infra/k8s-dev/*
+#      - ./infra/k8s-dev-test/*
+
 build:
   local:
     push: false
@@ -19,13 +21,31 @@ build:
           - src: 'src/**/*.ts'
             dest: .
 
-    - image: hilare/client
-      context: client
+    #    - image: hilare/client
+    #      context: client
+    #      docker:
+    #        dockerfile: Dockerfile.dev
+    #      sync:
+    #        manual:
+    #          - src: '**/*.js'
+    #            dest: .
+
+    - image: hilare/client-remix
+      context: client-remix
       docker:
         dockerfile: Dockerfile.dev
       sync:
         manual:
+          - src: '**/*.tsx'
+            dest: .
+
+          - src: '**/*.ts'
+            dest: .
+
           - src: '**/*.js'
+            dest: .
+
+          - src: '.cache'
             dest: .
 
     - image: hilare/tickets
