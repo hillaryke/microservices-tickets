@@ -14,6 +14,7 @@ export interface Ticket {
 
 export const loader: LoaderFunction = async () => {
    // fetch tickets
+
    try {
       const client = axios.create({
          timeout: 60000,
