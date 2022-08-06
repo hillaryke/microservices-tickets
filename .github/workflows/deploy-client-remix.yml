@@ -1,14 +1,14 @@
-name: deploy-client
+name: deploy-client-remix
 
 on:
   push:
     paths:
-      - "client/**"
+      - "client-remix/**"
     branches:
       - "main"
 
 jobs:
-  deploy-client:
+  deploy-client-remix:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code or latest repo
@@ -21,11 +21,11 @@ jobs:
         run: |
           echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
-      - name: build client image
-        run: cd client/ && docker build -t hilare/client .
+      - name: build client-remix image
+        run: cd client-remix/ && docker build -t hilare/client-remix .
 
-      - name: push client image to docker hub
-        run: docker push hilare/client
+      - name: push client-remix image to docker hub
+        run: docker push hilare/client-remix
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
@@ -35,4 +35,4 @@ jobs:
       - name: Save DigitalOcean kubeconfig for kubernetes cluster
         run: doctl kubernetes cluster kubeconfig save iticketing
 
-      - run: kubectl rollout restart deployment client-depl
+      - run: kubectl rollout restart deployment client-remix-depl
