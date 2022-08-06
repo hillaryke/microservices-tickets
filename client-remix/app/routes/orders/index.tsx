@@ -3,6 +3,7 @@ import { useLoaderData } from "@remix-run/react";
 import axios from "axios";
 import { OrderStatus } from "@itickets/common";
 import { Ticket } from "~/routes";
+import { redirect } from "@remix-run/node";
 
 interface Order {
    id: string;
@@ -22,6 +23,10 @@ export const loader: LoaderFunction = async ({ request }) => {
       return { orders: res.data };
    } catch (err) {
       console.log(err);
+      // @ts-ignore
+      if (err.response.status === 401) {
+         return redirect("/auth/signin");
+      }
       return null;
    }
 };
