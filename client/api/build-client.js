@@ -1,4 +1,5 @@
 import axios from "axios";
+import * as https from "https";
 
 export default ({ req }) => {
    if (typeof window === 'undefined') {
